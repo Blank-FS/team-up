@@ -19,11 +19,11 @@ export async function hasProfile() {
 export async function createProfile(formData: User) {
   if (await hasProfile()) return "Profile Exists";
   const session = await getSession();
-  const user = session?.user;
+  const user = session?.user as User;
 
   const profile = await prisma.user.create({
     data: {
-      email: user?.email,
+      email: user.email,
       first_name: formData.first_name,
       last_name: formData.last_name,
       user_name: formData.user_name,
