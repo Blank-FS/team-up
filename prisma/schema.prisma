@@ -8,16 +8,15 @@ generator client {
 }
 
 model User {
-  id         String   @id @map("_id") @db.ObjectId
+  id         String   @id @default(uuid()) @map("_id") @db.ObjectId
   user_name  String
-  password   String
   first_name String
   last_name  String
   email      String   @unique
-  school     String
-  teamIDs    String[] @db.ObjectId
+  school     String   @default("")
+  teamIDs    String[] @default([]) @db.ObjectId
   teams      Team[]   @relation(fields: [teamIDs], references: [id])
-  skillIDs   String[] @db.ObjectId
+  skillIDs   String[] @default([]) @db.ObjectId
   skills     Skill[]  @relation(fields: [skillIDs], references: [id])
 }
 
@@ -32,8 +31,7 @@ model Team {
 
 model Skill {
   id         String @id @map("_id") @db.ObjectId
-  skill_name String
-  category   String
+  skill_name String @unique
 
   userIDs String[] @db.ObjectId
   users   User[]   @relation(fields: [userIDs], references: [id])
