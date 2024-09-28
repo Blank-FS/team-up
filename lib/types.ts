@@ -6,15 +6,15 @@ export type User = {
   last_name: string;
   email: string;
   school: string;
-  teams: Team[];
-  skills: Skill[];
+  teams: Set<Team>;
+  skills: Set<Skill>;
 };
 
 export type Team = {
   id: number;
   team_name: string;
-  users: User[];
-  skills: Skill[];
+  users: Set<User>;
+  skills:  Set<Skill>;
 };
 
 export type Skill = {
