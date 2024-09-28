@@ -8,3 +8,13 @@ export type UserForm = {
   teams: Set<Team>;
   skills: Set<Skill>;
 };
+
+export type UserSkillForm = {
+   userID: string;
+   skill: Skill;
+};
+
+export type UserTeamForm = {
+   userID: User;
+   team: Team;
+};

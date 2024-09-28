@@ -16,23 +16,22 @@ model User {
   school     String   @default("")
   teamIDs    String[] @default([]) @db.ObjectId
   teams      Team[]   @relation(fields: [teamIDs], references: [id])
-  skillIDs   String[] @default([]) @db.ObjectId
+  skillIDs   String[] @default(uuid())
   skills     Skill[]  @relation(fields: [skillIDs], references: [id])
 }
 
 model Team {
-  id        String   @id @map("_id") @db.ObjectId
+  id        String   @id @default(uuid()) @map("_id") @db.ObjectId
   team_name String
   userIDs   String[] @db.ObjectId
   users     User[]   @relation(fields: [userIDs], references: [id])
-  skillIDs  String[] @db.ObjectId
+  skillIDs  String[] @default(uuid())
   skills    Skill[]  @relation(fields: [skillIDs], references: [id])
 }
 
 model Skill {
-  id         String @id @map("_id") @db.ObjectId
+  id         String @id @default(uuid()) @map("_id")
   skill_name String @unique
-
   userIDs String[] @db.ObjectId
   users   User[]   @relation(fields: [userIDs], references: [id])
   teamIDs String[] @db.ObjectId
