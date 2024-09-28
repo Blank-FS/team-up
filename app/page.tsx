@@ -113,21 +113,24 @@ export default function LandingPage() {
                 <Users className="h-8 w-8 mb-2" />
                 <h3 className="text-xl font-bold">Find Your Perfect Match</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Connect with developers, designers, and innovators who complement your skills.
+                  Connect with developers, designers, and innovators who
+                  complement your skills.
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
                 <Rocket className="h-8 w-8 mb-2" />
                 <h3 className="text-xl font-bold">Launch Projects Faster</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Form teams quickly and efficiently, so you can focus on building your project.
+                  Form teams quickly and efficiently, so you can focus on
+                  building your project.
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
                 <MessageSquare className="h-8 w-8 mb-2" />
                 <h3 className="text-xl font-bold">Collaborate Seamlessly</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Use our built-in tools to communicate and coordinate with your team throughout the hackathon.
+                  Use our built-in tools to communicate and coordinate with your
+                  team throughout the hackathon.
                 </p>
               </div>
             </div>
@@ -216,5 +219,5 @@ export default function LandingPage() {
         </nav>
       </footer>
     </div>
-  )
+  );
 }
