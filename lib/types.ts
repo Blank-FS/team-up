@@ -11,13 +11,13 @@ export type User = {
 };
 
 export type Team = {
-  id: number;
+  id?: string;
   team_name: string;
   users: Set<User>;
   skills:  Set<Skill>;
 };
 
 export type Skill = {
-  id: number;
+  id?: string;
   skill_name: string;
 };
