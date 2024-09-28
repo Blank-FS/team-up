@@ -1,14 +1,21 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Users, Rocket, MessageSquare, CheckCircle, UserPlus, Search, ArrowRight } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import photo1 from "./assets/photo1.jpg"
-import photo2 from "./assets/photo2.jpg"
-import photo3 from "./assets/photo3.jpg"
-
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Users,
+  Rocket,
+  MessageSquare,
+  CheckCircle,
+  UserPlus,
+  Search,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import photo1 from "./assets/photo1.jpg";
+import photo2 from "./assets/photo2.jpg";
+import photo3 from "./assets/photo3.jpg";
 
 function Navigation() {
   return (
@@ -42,37 +49,57 @@ function Navigation() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link href="#" className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-              <Link href="#" className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">How It Works</Link>
-              <Link href="#" className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Features</Link>
-              <Link href="#" className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">About</Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                How It Works
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Features
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                About
+              </Link>
             </div>
           </div>
           <div className="hidden md:block">
-            <Button variant="outline" className="mr-2">Log In</Button>
+            <Link href="/api/auth/login">
+              <Button variant="outline" className="mr-2">
+                Login
+              </Button>
+            </Link>
             <Button>Sign Up</Button>
           </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default function LandingPage() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const images = [
-    photo1,
-    photo2,
-    photo3
-  ]
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [photo1, photo2, photo3];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 5000) // Change image every 5 seconds
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -82,21 +109,26 @@ export default function LandingPage() {
           <div className="w-full lg:w-1/2 bg-gradient-to-br from-primary/20 to-primary/30 p-8 flex flex-col justify-center">
             <div className="max-w-md mx-auto">
               <h1 className="text-5xl font-bold mb-6">TeamUp</h1>
-              <p className="text-2xl mb-8">Form your dream hackathon team with ease. Connect, collaborate, and create amazing projects together.</p>
-              <Button size="lg" className="text-lg px-8 py-4">Start Teaming Up</Button>
+              <p className="text-2xl mb-8">
+                Form your dream hackathon team with ease. Connect, collaborate,
+                and create amazing projects together.
+              </p>
+              <Button size="lg" className="text-lg px-8 py-4">
+                Start Teaming Up
+              </Button>
             </div>
           </div>
           <div className="w-full lg:w-1/2 relative overflow-hidden">
             <div className="absolute inset-0 bg-black/50 z-10"></div>
             {images.map((src, index) => (
-              <Image 
+              <Image
                 key={index}
-                src={src} 
-                alt={`Hackathon team ${index + 1}`} 
-                width={800} 
-                height={600} 
+                src={src}
+                alt={`Hackathon team ${index + 1}`}
+                width={800}
+                height={600}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                  index === currentImageIndex ? "opacity-100" : "opacity-0"
                 }`}
               />
             ))}
@@ -184,7 +216,8 @@ export default function LandingPage() {
                   Ready to Form Your Dream Team?
                 </h2>
                 <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Join TeamUp today and take your hackathon experience to the next level.
+                  Join TeamUp today and take your hackathon experience to the
+                  next level.
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
@@ -208,7 +241,9 @@ export default function LandingPage() {
         </section>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">© 2024 TeamUp. All rights reserved.</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          © 2024 TeamUp. All rights reserved.
+        </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href="#">
             Terms of Service
