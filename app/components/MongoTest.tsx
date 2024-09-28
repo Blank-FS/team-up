@@ -4,5 +4,5 @@ import prisma from "@/prisma/db";
 export default async function MongoTest() {
   const allUsers = await prisma.users.findMany();
   console.log(allUsers);
-  return <p>Hello World</p>;
+  return <></>;
 }
