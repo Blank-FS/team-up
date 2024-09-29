@@ -39,10 +39,6 @@ export async function getInvite(invite_id: string): Promise<Invite | null> {
 
 export async function completeInvite(accept: boolean, invite_id: string) {
    const invite = await getInvite(invite_id) as Invite;
-   const dlt_inv = await prisma.invite.delete({
-      where: { invite_id: invite_id }
-   });
-
    if (accept) {
       let userTeamForm: UserTeamForm = {
          userID: invite.receiverID,
@@ -51,4 +47,8 @@ export async function completeInvite(accept: boolean, invite_id: string) {
 
       await addUserTeam(userTeamForm);
    }
+
+   const dlt_inv = await prisma.invite.delete({
+      where: { invite_id: invite.invite_id }
+   });
 }
