@@ -116,6 +116,7 @@ export default function OnboardingProcess() {
           description: "There was an error submitting your information.",
           variant: "destructive",
         });
+        console.log(error);
       }
     } else {
       toast({

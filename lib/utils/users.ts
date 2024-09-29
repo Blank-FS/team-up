@@ -3,6 +3,7 @@ import prisma from "../../prisma/db";
 import type { Invite, Team, User } from "@prisma/client";
 import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
 import { UserExtra } from "../types";
+import { UserInfo } from "os";
 
 // Check if current user in session has profile, return true if user has profile
 export async function hasProfile(email: string) {
@@ -45,6 +46,7 @@ export async function createProfile(user: UserForm) {
       avatar: user.avatar,
       role: user.role,
       bio: user.bio,
+      skills: user.skills,
     },
   });
 }
@@ -61,7 +63,7 @@ export async function updateProfile(email: string, user: Partial<UserForm>) {
 
 export async function getInfo() {
   const session = await getSession();
-  const user = session?.user as User;
+  const user = session?.user;
   return user;
 }
 
