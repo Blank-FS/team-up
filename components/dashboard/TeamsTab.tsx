@@ -16,10 +16,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { TeamExtra } from "@/lib/types";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { PlusCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UserExtra } from "../../lib/types";
 import TeamCard from "./TeamCard";
 
 interface TeamsTabProps {
@@ -27,7 +27,7 @@ interface TeamsTabProps {
 }
 
 export default function TeamsPage({ teams }: TeamsTabProps) {
-  const { user } = useUser();
+  const [user, setUser] = useState<UserExtra | null>(null);
   const { toast } = useToast();
   const [isAddingTeam, setIsAddingTeam] = useState(false);
   const [newTeam, setNewTeam] = useState({ team_name: "", description: "" });
@@ -42,6 +42,16 @@ export default function TeamsPage({ teams }: TeamsTabProps) {
     setNewTeam({ team_name: "", description: "" });
   };
 
+  useEffect(() => {
+    const getUser = async () => {
+      const data = await fetch("/api/get-profile");
+      const response = await data.json();
+      console.log("User data:", response);
+      setUser(response)
+    };
+    getUser();
+  }, []);
+
   return (
     <div className="container mx-auto p-4">
       <Tabs defaultValue="my-teams" className="w-full bg-transparent">
@@ -54,7 +64,9 @@ export default function TeamsPage({ teams }: TeamsTabProps) {
             <AnimatePresence>
               {teams
                 .filter((team) =>
-                  team.users.some((user) => user.user_id === user?.user_id)
+                  team.users.some(
+                    (teamUser) => teamUser.user_id === user?.user_id
+                  )
                 )
                 .map((team) => (
                   <motion.div
@@ -76,7 +88,7 @@ export default function TeamsPage({ teams }: TeamsTabProps) {
               {teams
                 .filter(
                   (team) =>
-                    !team.users.some((user) => user.user_id === user?.user_id)
+                    !team.users.some((teamUser) => teamUser.user_id === user?.user_id)
                 )
                 .map((team) => (
                   <motion.div
