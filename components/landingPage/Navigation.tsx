@@ -60,37 +60,44 @@ export default function Navigation() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link style={{ color: MAIZE}}
+            <div className="ml-10 flex items-baseline space-x-4">
+              <Link
                 href="/home"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Dashboard
               </Link>
-              <Link style={{ color: MAIZE}}
-                href= "#why-choose-it"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              
+              <Link
+                href="#why-choose-it"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"  
               >
                 Why Choose TeamUp
               </Link>
-              <Link style={{ color: MAIZE}}
+              
+              <Link
                 href="#how-it-works"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 How TeamUp Works
               </Link>
-              <Link style={{ color: MAIZE}}
+              
+              <Link
                 href="#"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                About
+                Sign Up
               </Link>
+            </div>
             </div>
           </div>
           <div className="hidden md:block">
-            <Button variant="outline" className="mr-2">
-              Login
-            </Button>
-            <Button style={{ backgroundColor: "#4B5563" }} className="dark:bg-white">Sign Up</Button>
+            <Link 
+                href="/api/auth/login"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                <Button className = "bg-[#FFCB05] text-[#00274C] hover:bg-[#375A7F] hover:text-[#FDFD96] px-4 py-2 rounded">Get started</Button>
+              </Link>
           </div>
         </div>
       </div>
