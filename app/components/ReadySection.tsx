@@ -5,7 +5,11 @@ import { Button } from "../../components/ui/button";
 export default function ReadySection() {
   return (
     <section className="py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-      <div className="container px-4 md:px-6">
+      <div style={{
+        backgroundImage: 'url("./app/assets/photo5.jpg")',
+        backgroundSize: 'cover', // Ensures the image covers the whole div
+        backgroundPosition: 'center', // Centers the image
+      }} className="container px-4 md:px-6">
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
