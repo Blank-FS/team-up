@@ -4,22 +4,10 @@ import {
   createProfile,
   getAllUsers,
   getUserById,
-  getUserByName,
   hasProfile,
 } from "@/lib/utils/users";
 import { getAllTeams } from "@/lib/utils/teams";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-// Hook to fetch user by name
-export const useUserByName = (username: string) => {
-  return useQuery<UserExtra | null>({
-    queryKey: ["user", username],
-    queryFn: async () => {
-      const user = await getUserByName(username);
-      return JSON.parse(JSON.stringify(user));
-    },
-  });
-};
 
 // Hook to fetch all users
 export const useAllUsers = () => {
@@ -49,28 +37,6 @@ export const useUserById = (userId: string) => {
     queryFn: async () => {
       const user = await getUserById(userId);
       return JSON.parse(JSON.stringify(user));
-    },
-  });
-};
-
-// Hook to check if user has profile
-export const useHasProfile = () => {
-  return useQuery<boolean>({
-    queryKey: ["hasProfile"],
-    queryFn: async () => {
-      const profileExists = await hasProfile();
-      return JSON.parse(JSON.stringify(profileExists));
-    },
-  });
-};
-
-// Hook to create user profile
-export const useCreateProfile = () => {
-  const queryClient = useQueryClient();
-  return useMutation<"Profile Exists" | "Profile Created", unknown, UserForm>({
-    mutationFn: createProfile,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hasProfile"] });
     },
   });
 };
