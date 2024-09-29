@@ -42,8 +42,6 @@ model Invite {
   user      User   @relation("UserInvites", fields: [userID], references: [user_id])
   teamID    String
   team      Team   @relation("TeamInvites", fields: [teamID], references: [team_id])
-
-  @@unique([userID,teamID])
 }
 
 model Event {
