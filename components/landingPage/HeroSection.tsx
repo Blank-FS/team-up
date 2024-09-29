@@ -2,13 +2,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import photo1 from "@/app/assets/photo1.jpg";
-import photo2 from "@/app/assets/photo2.jpg";
-import photo3 from "@/app/assets/photo3.jpg";
-import photo4 from "@/app/assets/photo4.jpg";
+import photo1 from "../assets/photo1.jpg";
+import photo2 from "../assets/photo2.jpg";
+import photo3 from "../assets/photo3.jpg";
+import photo4 from "../assets/photo4.jpg";
 import { Button } from "../../components/ui/button";
 
-export default function HeroSection() {
+export default function Footer() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [photo1, photo2, photo3, photo4];
 
@@ -20,7 +20,7 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <section className="w-full min-h-[80vh] flex flex-col lg:flex-row">
+    <section className="w-full min-h-[70vh] flex flex-col lg:flex-row">
       <div className="w-full lg:w-1/2 bg-gradient-to-br from-primary/20 to-primary/30 p-8 flex flex-col justify-center">
         <div className="max-w-md mx-auto">
           <h1 className="text-5xl font-bold mb-6">TeamUp</h1>

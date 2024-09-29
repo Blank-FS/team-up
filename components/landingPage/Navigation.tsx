@@ -61,22 +61,22 @@ export default function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link style={{ color: MAIZE}}
-                href="#"
+                href="/home"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                Home
+                Dashboard
               </Link>
               <Link style={{ color: MAIZE}}
-                href="#"
+                href= "#why-choose-it"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                How It Works
+                Why Choose TeamUp
               </Link>
               <Link style={{ color: MAIZE}}
-                href="#"
+                href="#how-it-works"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                Features
+                How TeamUp Works
               </Link>
               <Link style={{ color: MAIZE}}
                 href="#"
@@ -86,30 +86,11 @@ export default function Navigation() {
               </Link>
             </div>
           </div>
-          <div className="flex flex-row items-center justify-center gap-3">
-            <ThemeSwitch />
-            {user ? (
-              <div className="flex items-center gap-3">
-                <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
-                  <AvatarImage
-                    src={user.picture ?? ""}
-                    alt={user.name ?? "User"}
-                  />
-                  <AvatarFallback>{user.nickname}</AvatarFallback>
-                </Avatar>
-              </div>
-            ) : (
-              <>
-                <Button
-                  onClick={handleLogin}
-                  variant="outline"
-                  className="mr-2"
-                >
-                  Login
-                </Button>
-                <Button>Sign Up</Button>
-              </>
-            )}
+          <div className="hidden md:block">
+            <Button variant="outline" className="mr-2">
+              Login
+            </Button>
+            <Button style={{ backgroundColor: "#4B5563" }} className="dark:bg-white">Sign Up</Button>
           </div>
         </div>
       </div>
