@@ -35,7 +35,7 @@ export async function createProfile(formData: UserForm) {
 export async function getInfo() {
   const session = await getSession();
   const user = session?.user as User;
-  console.log(user);
+  return user;
 }
 
 export async function getUserById(userID: string): Promise<User | null> {
