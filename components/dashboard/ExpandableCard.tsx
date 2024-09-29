@@ -20,7 +20,11 @@ interface ExpandableCardProps {
   setActive: (card: CardContent | null) => void;
 }
 
-export function ExpandableCard({ cards, active, setActive }: ExpandableCardProps) {
+export function ExpandableCard({
+  cards,
+  active,
+  setActive,
+}: ExpandableCardProps) {
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -107,9 +111,9 @@ export function ExpandableCard({ cards, active, setActive }: ExpandableCardProps
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    href={active.ctaLink}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-red-500 text-white hover:cursor-pointer"
+                    onClick={() => setActive(null)} // Close the card on click
                   >
                     {active.ctaText}
                   </motion.a>
@@ -122,7 +126,9 @@ export function ExpandableCard({ cards, active, setActive }: ExpandableCardProps
                     exit={{ opacity: 0 }}
                     className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
-                    {typeof active.content === "function" ? active.content() : active.content}
+                    {typeof active.content === "function"
+                      ? active.content()
+                      : active.content}
                   </motion.div>
                 </div>
               </div>
