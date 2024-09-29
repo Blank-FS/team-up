@@ -1,5 +1,4 @@
 import { getSession } from "@auth0/nextjs-auth0";
-import type { User } from "@prisma/client";
 import prisma from "../../prisma/db";
 import type { Invite, Team, User } from '@prisma/client'
 import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
