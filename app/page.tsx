@@ -1,154 +1,87 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Code2, MessageSquare, Rocket, Users } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Navigation from "./components/Navigation";
+import HowSection from "./components/HowSection";
+import WhySection from "./components/WhySection";
+import ReadySection from "./components/ReadySection";
+import Footer from "./components/Footer";
+import {
+  Users,
+  Rocket,
+  MessageSquare,
+  CheckCircle,
+  UserPlus,
+  Search,
+  ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { ThemeSwitch } from "@/components/theme-switch";
+import Image from "next/image";
+import photo1 from "./assets/photo1.jpg";
+import photo2 from "./assets/photo2.jpg";
+import photo3 from "./assets/photo3.jpg";
+import { getInfo } from "@/lib/utils/users";
 
-export default function Home() {
-  const router = useRouter();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+export default function LandingPage() {
+  getInfo();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [photo1, photo2, photo3];
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
 
-  if (!mounted) return null;
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <Code2 className="h-6 w-6 mr-2" />
-          <span className="font-bold">HackTeamUp</span>
-        </Link>
-        <nav className="ml-auto mt-auto flex flex-row items-center justify-center gap-4 sm:gap-6">
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Features
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            How It Works
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            About
-          </Link>
-          <ThemeSwitch />
-        </nav>
-      </header>
+      <Navigation />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Form Your Dream Hackathon Team
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Connect with like-minded innovators, find the perfect
-                  teammates, and build amazing projects together.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <Button onClick={() => router.push("/home")}>
-                  Get Started
-                </Button>
-                <Button variant="outline">Learn More</Button>
-              </div>
+        <section className="w-full min-h-[70vh] flex flex-col lg:flex-row">
+          <div className="w-full lg:w-1/2 bg-gradient-to-br from-primary/20 to-primary/30 p-8 flex flex-col justify-center">
+            <div className="max-w-md mx-auto">
+              <h1 className="text-5xl font-bold mb-6">TeamUp</h1>
+              <p className="text-2xl mb-8">
+                Form your dream hackathon team with ease. Connect, collaborate,
+                and create amazing projects together.
+              </p>
+              <Button size="lg" className="text-lg px-8 py-4">
+                Start Teaming Up
+              </Button>
             </div>
           </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-              Why Choose HackTeamUp?
-            </h2>
-            <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-              <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
-                <Users className="h-8 w-8 mb-2" />
-                <h3 className="text-xl font-bold">Find Your Perfect Match</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Connect with developers, designers, and innovators who
-                  complement your skills.
-                </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
-                <Rocket className="h-8 w-8 mb-2" />
-                <h3 className="text-xl font-bold">Launch Projects Faster</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Form teams quickly and efficiently, so you can focus on
-                  building your project.
-                </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
-                <MessageSquare className="h-8 w-8 mb-2" />
-                <h3 className="text-xl font-bold">Collaborate Seamlessly</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  Use our built-in tools to communicate and coordinate with your
-                  team throughout the hackathon.
-                </p>
-              </div>
-            </div>
+          <div className="w-full lg:w-1/2 relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/50 z-10"></div>
+            {images.map((src, index) => (
+              <Image
+                key={index}
+                src={src}
+                alt={`Hackathon team ${index + 1}`}
+                width={800}
+                height={600}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  Ready to Form Your Dream Team?
-                </h2>
-                <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Join HackTeamUp today and take your hackathon experience to
-                  the next level.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <Input
-                    className="max-w-lg flex-1"
-                    placeholder="Enter your email"
-                    type="email"
-                  />
-                  <Button type="submit">Sign Up</Button>
-                </form>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  By signing up, you agree to our{" "}
-                  <Link className="underline underline-offset-2" href="#">
-                    Terms & Conditions
-                  </Link>
-                </p>
-              </div>
-            </div>
+        <div className="flex flex-col item-center justify-center">
+          <div>
+            <WhySection />
           </div>
-        </section>
+          <div>
+            <HowSection />
+          </div>
+          <div>
+            <ReadySection />
+          </div>
+        </div>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          © 2024 HackTeamUp. All rights reserved.
-        </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-        </nav>
-      </footer>
+      <Footer />
     </div>
   );
 }

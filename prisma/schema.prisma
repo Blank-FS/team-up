@@ -1,0 +1,39 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String   @id @default(uuid()) @map("_id")
+  user_name  String
+  first_name String
+  last_name  String
+  email      String   @unique
+  school     String   @default("")
+  teamIDs    String[] @default([])
+  teams      Team[]   @relation(fields: [teamIDs], references: [id])
+  skillIDs   String[] @default([])
+  skills     Skill[]  @relation(fields: [skillIDs], references: [id])
+}
+
+model Team {
+  id        String   @id @default(uuid()) @map("_id")
+  team_name String   @unique
+  userIDs   String[] @default([])
+  users     User[]   @relation(fields: [userIDs], references: [id])
+  skillIDs  String[] @default([])
+  skills    Skill[]  @relation(fields: [skillIDs], references: [id])
+}
+
+model Skill {
+  id         String   @id @default(uuid()) @map("_id")
+  skill_name String   @unique
+  userIDs    String[] @default([])
+  users      User[]   @relation(fields: [userIDs], references: [id])
+  teamIDs    String[] @default([])
+  teams      Team[]   @relation(fields: [teamIDs], references: [id])
+}
