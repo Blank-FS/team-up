@@ -1,7 +1,6 @@
 import { getSession } from "@auth0/nextjs-auth0";
-import type { User } from "@prisma/client";
 import prisma from "../../prisma/db";
-import type { Invite, Team, User } from '@prisma/client'
+import type { Invite, Team, User } from "@prisma/client";
 import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
 import { UserExtra } from "../types";
 
@@ -10,6 +9,25 @@ export async function hasProfile(email: string) {
   const profile = await prisma.user.findUnique({
     where: {
       email: email,
+    },
+  });
+  return profile ? true : false;
+}
+
+export async function hasFullProfile(email: string) {
+  const profile = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+    select: {
+      first_name: true,
+      last_name: true,
+      user_name: true,
+      school: true,
+      avatar: true,
+      role: true,
+      bio: true,
+      skills: true,
     },
   });
   return profile ? true : false;
@@ -183,24 +201,26 @@ export async function getAllUserSkill(
 export async function getUserTeams(user_id: string): Promise<Team[] | null> {
   const user = await prisma.user.findUnique({
     where: {
-      user_id: user_id
+      user_id: user_id,
     },
     select: {
-      teams: true
-    }
+      teams: true,
+    },
   });
 
   return user?.teams as Team[];
 }
 
-export async function getUserPending(user_id: string): Promise<Invite[] | null> {
+export async function getUserPending(
+  user_id: string
+): Promise<Invite[] | null> {
   const user = await prisma.user.findUnique({
     where: {
-      user_id: user_id
+      user_id: user_id,
     },
     select: {
-      invites: true
-    }
+      invites: true,
+    },
   });
 
   return user?.invites as Invite[];
