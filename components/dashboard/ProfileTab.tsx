@@ -73,7 +73,7 @@ const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-3xl mx-auto overflow-hidden">
+      <Card className="w-full max-w-3xl mx-auto overflow-hidden" bgColor ="bg-[#CFC096] dark:bg-[#655A52]">
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle>User Profile</CardTitle>

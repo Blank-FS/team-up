@@ -12,6 +12,12 @@ export type UserForm = {
    skills: string[];
 };
 
+export type TeamForm = {
+   team_id: string;
+   team_name: string;
+   description: string;
+}
+
 export type UserSkillForm = {
    userID: string;
    skill_name: string;
@@ -21,3 +27,9 @@ export type UserTeamForm = {
    userID: string;
    teamID: string;
 };
+
+export type InviteForm = {
+   senderID: string;
+   receiverID: string;
+   teamID: string;
+}
