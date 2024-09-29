@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { ThemeSwitch } from "../theme-switch";
 import { useRouter } from "next/navigation";
@@ -60,7 +59,6 @@ export default function Navigation() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-            <div className="ml-10 flex items-baseline space-x-4">
               <Link
                 href="/home"
                 className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -81,18 +79,32 @@ export default function Navigation() {
               >
                 How TeamUp Works
               </Link>
-              
-         
-            </div>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="flex flex-row items-center justify-center gap-3">
+            <ThemeSwitch />
+            {user ? (
+              <div className="flex items-center gap-3">
+                <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
+                  <AvatarImage
+                    src={user.picture ?? ""}
+                    alt={user.name ?? "User"}
+                  />
+                  <AvatarFallback>{user.nickname}</AvatarFallback>
+                </Avatar>
+              </div>
+            ) : (
+              <>
+                <div className="hidden md:block">
             <Link 
                 href="/api/auth/login"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
                 <Button className = "bg-[#FFCB05] text-[#00274C] hover:bg-[#375A7F] hover:text-[#FDFD96] px-4 py-2 rounded">Get started</Button>
               </Link>
+          </div>
+              </>
+            )}
           </div>
         </div>
       </div>

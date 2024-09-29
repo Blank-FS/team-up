@@ -18,7 +18,12 @@ export default function ReadySection() {
             </p>
           </div>
           <div className="w-full max-w-sm space-y-2">
-            <Button style={{ backgroundColor: MAIZE, color: BLUE}} type="submit">Sign Up</Button>
+            <Link
+              href="/api/auth/login"
+              className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              <Button style={{ backgroundColor: MAIZE, color: BLUE}} type="submit">Sign Up</Button>
+            </Link>
             <p className="text-xs text-gray-300">
               By signing up, you agree to our{" "}
               <Link className="underline underline-offset-2 hover:text-white" href="#">
