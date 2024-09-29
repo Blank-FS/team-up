@@ -42,7 +42,8 @@ export async function getUserById(user_id: string): Promise<UserExtra | null> {
       user_id: user_id,
     },
     include: {
-      teams: true
+      teams: true,
+      events: true
     }
   });
 
@@ -55,7 +56,8 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
       user_name: user_name,
     },
     include: {
-      teams: true
+      teams: true,
+      events: true
     }
   });
 
@@ -63,7 +65,7 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
 }
 
 export async function getAllUsers(): Promise<UserExtra[] | null> {
-  const user = await prisma.user.findMany({ include: { teams: true } });
+  const user = await prisma.user.findMany({ include: { teams: true, events: true} });
   return user;
 }
 
