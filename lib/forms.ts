@@ -1,12 +1,11 @@
 import { User, Skill, Team } from "./types";
 
 export type UserForm = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  school: string;
-  teams: Set<Team>;
-  skills: Set<Skill>;
+   user_name: string
+   first_name: string;
+   last_name: string;
+   email: string;
+   school: string;
 };
 
 export type UserSkillForm = {
@@ -15,6 +14,6 @@ export type UserSkillForm = {
 };
 
 export type UserTeamForm = {
-   userID: User;
-   team: Team;
+   userID: string;
+   teamID: string;
 };
