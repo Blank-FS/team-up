@@ -1,19 +1,18 @@
 export type User = {
   id?: string;
   user_name: string;
-  password: string;
   first_name: string;
   last_name: string;
   email: string;
   school: string;
-  teams: Set<Team>;
+  teamIDs: Set<string>;
   skills: Set<Skill>;
 };
 
 export type Team = {
   id?: string;
   team_name: string;
-  users: Set<User>;
+  userIDs: Set<string>;
   skills:  Set<Skill>;
 };
 
