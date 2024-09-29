@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { LogOutIcon, SearchIcon, UserIcon, UsersIcon, SquarePlusIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { LogOutIcon, SearchIcon, SquarePlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 const links = [
   {
@@ -19,7 +19,7 @@ const links = [
     icon: UsersIcon,
   },
   {
-    label: "Form",
+    label: "Pending",
     icon: SquarePlusIcon,
   },
 ];
