@@ -9,7 +9,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MAIZE } from "@/lib/constants";
 import { BLUE } from "@/lib/constants";
-import Link from "next/link";
 
 export default function Navigation() {
   const router = useRouter();
