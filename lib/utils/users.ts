@@ -50,10 +50,10 @@ export async function getUserById(user_id: string): Promise<UserExtra | null> {
   return user;
 }
 
-export async function getUserByName(user_name: string): Promise<UserExtra | null> {
+export async function getUserByEmail(email: string): Promise<UserExtra | null> {
   const user = await prisma.user.findUnique({
     where: {
-      user_name: user_name,
+      email: email,
     },
     include: {
       teams: true,
