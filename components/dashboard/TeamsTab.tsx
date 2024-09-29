@@ -17,7 +17,7 @@ const TeamsTab: React.FC<TeamsTabProps> = ({ teams }) => {
   return (
     <div className="space-y-4">
       {teams.map((team) => (
-        <Card key={team.team_id}>
+        <Card bgColor ="bg-[#CFC096] dark:bg-[#655A52] hover:bg-white dark:hover:bg-[#262626]" key={team.team_id}>
           <CardHeader>
             <CardTitle>{team.team_name}</CardTitle>
             <CardDescription textColor="text-[#00274C] dark:text-gray">{team.description}</CardDescription>
