@@ -47,13 +47,18 @@ export async function generateUser() {
       skills: generateSkills(),
       role: generateRole(),
       bio: faker.lorem.paragraph({ min: 2, max: 4 }),
-      avatar: faker.image.avatar(),
+      avatar: faker.image.urlPicsumPhotos({
+        height: 256,
+        width: 256,
+        blur: 0,
+        grayscale: false,
+      }),
     },
   });
 }
 
 async function main() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 6; i++) {
     try {
       await generateUser();
       console.log("User generated successfully!");
