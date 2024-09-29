@@ -1,7 +1,5 @@
 import Link from "next/link";
-import React from "react";
-import { Button } from "../../components/ui/button";
-import photo5 from "../assets/photo5.jpg";
+import { Button } from "../ui/button";
 import { MAIZE } from "@/lib/constants";
 import { BLUE } from "@/lib/constants";
 

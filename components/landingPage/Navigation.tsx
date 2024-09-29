@@ -1,10 +1,34 @@
-import { Button } from "../../components/ui/button";
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import { Button } from "../ui/button";
+import { ThemeSwitch } from "../theme-switch";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MAIZE } from "@/lib/constants";
 import { BLUE } from "@/lib/constants";
 
 export default function Navigation() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { user } = useUser();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const handleLogin = () => {
+    router.push("/api/auth/login");
+  };
+
+  const handleLogout = () => {
+    router.push("/api/auth/logout");
+  };
+
   return (
     <nav style={{ backgroundColor: BLUE}} className="dark:bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,7 +90,7 @@ export default function Navigation() {
             <Button variant="outline" className="mr-2">
               Login
             </Button>
-            <Button style={{ backgroundColor: "#4B5563" }}>Sign Up</Button>
+            <Button style={{ backgroundColor: "#4B5563" }} className="dark:bg-white">Sign Up</Button>
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
-import MongoTest from "./components/MongoTest";
 import { Button } from "@/components/ui/button";
-import HeroSection from "./components/HeroSection";
-import Navigation from "./components/Navigation";
-import HowSection from "./components/HowSection";
-import WhySection from "./components/WhySection";
-import ReadySection from "./components/ReadySection";
-import Footer from "./components/Footer";
-
-export default function LandingPage() {
+import Footer from "@/components/landingPage/Footer";
+import HowSection from "@/components/landingPage/HowSection";
+import HeroSection from "@/components/landingPage/HeroSection";
+import Navigation from "@/components/landingPage/Navigation";
+import ReadySection from "@/components/landingPage/ReadySection";
+import WhySection from "@/components/landingPage/WhySection";
+import ImageCarousel from "@/components/landingPage/imageCarousel";
+import MongoTest from "./components/MongoTest";
+export default async function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <MongoTest />

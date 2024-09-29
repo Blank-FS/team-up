@@ -46,7 +46,7 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col md:flex-row bg-gray-100">
+    <div className="flex flex-col md:flex-row">
       <Sidebar animate open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -56,11 +56,13 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
                   variant="ghost"
                   key={idx}
                   onClick={() => setActiveTab(link.label)}
-                  className={cn(
-                    activeTab === link.label
-                      ? "bg-gray-200 dark:bg-gray-700"
-                      : ""
-                  )}
+                  className={
+                    cn(
+                      activeTab === link.label
+                        ? "bg-slate-300 dark:bg-gray-700"
+                        : ""
+                    ) + " flex flex-row items-center justify-start hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }
                 >
                   {link.icon}
                   {open && <span className="ml-2">{link.label}</span>}
@@ -68,14 +70,16 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
               ))}
             </div>
           </div>
-          <div className="mt-auto">
+          <div className="flex flex-col">
             <Button
               variant="destructive"
               className="flex flex-row items-center justify-center"
               onClick={() => router.push("/api/auth/logout")}
             >
-              <LogOutIcon className="h-5 w-5 mr-2" />
-              {open && <span>Logout</span>}
+              <LogOutIcon
+                className={`h-5 w-5 flex-shrink-0 ${open ? "mr-2" : ""}`}
+              />
+              <span>{open ? "Logout" : ""}</span>
             </Button>
           </div>
         </SidebarBody>
