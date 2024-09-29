@@ -19,9 +19,7 @@ model User {
   school     String   @default("")
   teamIDs    String[] @default([])
   teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
-  skills      String[] @default([])
-
-  @@unique([teamIDs])
+  skills     String[] @default([])
 }
 
 model Team {
@@ -31,6 +29,4 @@ model Team {
   userIDs     String[] @default([])
   users       User[]   @relation(fields: [userIDs], references: [user_id])
   skills      String[] @default([])
-
-  @@unique([userIDs])
 }

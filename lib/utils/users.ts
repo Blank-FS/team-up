@@ -1,14 +1,11 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import prisma from "../../prisma/db";
 import type { User } from '@prisma/client'
-import { UserForm, UserSkillForm, UserTeamForm } from "../forms";
+import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
 import { UserExtra } from "../types";
 
 // Check if current user in session has profile, return true if user has profile
-export async function hasProfile() {
-  const session = await getSession();
-  const user = session?.user;
-  const email = user?.email;
+export async function hasProfile(email: string) {
   const profile = await prisma.user.findUnique({
     where: {
       email: email,
@@ -17,18 +14,18 @@ export async function hasProfile() {
   return profile ? true : false;
 }
 
-export async function createProfile(formData: UserForm) {
-  if (await hasProfile()) return "Profile Exists";
-  const session = await getSession();
-  const user = session?.user as User;
-
+export async function createProfile(user: UserForm) {
+  if (await hasProfile(user.email)) return "Profile Exists";
   const profile = await prisma.user.create({
     data: {
       email: user.email,
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      user_name: formData.user_name,
-      school: formData.school,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      user_name: user.user_name,
+      school: user.school,
+      avatar: user.avatar,
+      role: user.role,
+      bio: user.bio,
     },
   });
 }
@@ -79,9 +76,9 @@ export async function addUserSkill(
   const updatedUser = await prisma.user.update({
     where: { user_id: userSkillForm.userID },
     data: {
-     skills: {
-      push: userSkillForm.skill_name
-     },
+      skills: {
+        push: userSkillForm.skill_name
+      },
     },
   });
 }
@@ -89,9 +86,6 @@ export async function addUserSkill(
 export async function addUserTeam(
   userTeamForm: UserTeamForm
 ) {
-  const session = await getSession();
-  const user = session?.user as User;
-
   const updatedUser = await prisma.user.update({
     where: { user_id: userTeamForm.userID },
     data: {
@@ -102,6 +96,45 @@ export async function addUserTeam(
           },
         ],
       }
+    },
+  });
+}
+
+export async function getUpdateUserFormByEmail(email: string): Promise<UserForm | null> {
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+    select: {
+      user_id: true,
+      user_name: true,
+      first_name: true,
+      last_name: true,
+      avatar: true,
+      role: true,
+      bio: true,
+      email: true,
+      school: true,
+      skills: true
+    }
+  });
+
+  return user;
+}
+
+export async function updateUser(
+  user: UserForm
+) {
+  const updatedUser = await prisma.user.update({
+    where: { user_id: user.user_id },
+    data: {
+      user_name: user.user_name,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      avatar: user.avatar,
+      role: user.avatar,
+      bio: user.bio,
+      email: user.email,
+      school: user.school,
+      skills: user.skills
     },
   });
 }
