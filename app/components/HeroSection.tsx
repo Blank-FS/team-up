@@ -20,7 +20,7 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <section className="w-full min-h-[80vh] flex flex-col lg:flex-row">
+    <section className="w-full min-h-[70vh] flex flex-col lg:flex-row">
       <div className="w-full lg:w-1/2 bg-gradient-to-br from-primary/20 to-primary/30 p-8 flex flex-col justify-center">
         <div className="max-w-md mx-auto">
           <h1 className="text-5xl font-bold mb-6">TeamUp</h1>

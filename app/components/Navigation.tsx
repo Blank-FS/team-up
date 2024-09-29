@@ -37,22 +37,22 @@ export default function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link style={{ color: MAIZE}}
-                href="#"
+                href="/home"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                Home
+                Dashboard
               </Link>
               <Link style={{ color: MAIZE}}
-                href="#"
+                href= "#why-choose-it"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                Features
+                Why Choose TeamUp
               </Link>
               <Link style={{ color: MAIZE}}
-                href="#"
+                href="#how-it-works"
                 className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                How It Works
+                How TeamUp Works
               </Link>
               <Link style={{ color: MAIZE}}
                 href="#"
