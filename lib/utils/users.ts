@@ -49,6 +49,8 @@ export async function getUserById(userID: string): Promise<User | null> {
       teams: true,
       skills: true,
     },
+      skills: true,
+    },
   });
 
   if (userRs == null) {
