@@ -22,6 +22,7 @@ model User {
   teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
   eventIDs   String[] @default([])
   events     Event[]  @relation(fields: [eventIDs], references: [event_id])
+  invites     Invite[] @relation("UserInvites")
 }
 
 model Team {
@@ -32,6 +33,15 @@ model Team {
   users       User[]   @relation(fields: [userIDs], references: [user_id])
   eventIDs    String[] @default([])
   events      Event[]  @relation(fields: [eventIDs], references: [event_id])
+  invites      Invite[] @relation("TeamInvites")
+}
+
+model Invite {
+  invite_id String @id @default(uuid()) @map("_id")
+  userID    String
+  user      User   @relation("UserInvites", fields: [userID], references: [user_id])
+  teamID    String
+  team      Team   @relation("TeamInvites", fields: [teamID], references: [team_id])
 }
 
 model Event {
