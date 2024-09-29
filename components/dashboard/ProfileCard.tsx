@@ -33,7 +33,7 @@ const ProfileCard = ({ pfp, name, skills, username }: ProfileCardProps) => {
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
               <Badge
-                className="bg-black dark:bg-[#CFC096] dark:text-slate-600"
+                className="bg-black dark:bg-[#CFC096] dark:text-slate-600 text-slate-400"
                 key={index}
                 variant="outline"
               >
