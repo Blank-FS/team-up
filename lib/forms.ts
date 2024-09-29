@@ -27,3 +27,9 @@ export type UserTeamForm = {
    userID: string;
    teamID: string;
 };
+
+export type InviteForm = {
+   senderID: string;
+   receiverID: string;
+   teamID: string;
+}

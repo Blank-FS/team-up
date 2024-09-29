@@ -219,7 +219,7 @@ export async function getUserTeams(user_id: string): Promise<Team[] | null> {
   return user?.teams as Team[];
 }
 
-export async function getUserPending(
+export async function getUserReceiveInvites(
   user_id: string
 ): Promise<Invite[] | null> {
   const user = await prisma.user.findUnique({
@@ -227,9 +227,24 @@ export async function getUserPending(
       user_id: user_id,
     },
     select: {
-      invites: true,
+      receive_inv: true,
     },
   });
 
-  return user?.invites as Invite[];
+  return user?.receive_inv as Invite[];
+}
+
+export async function getUserSendInvites(
+  user_id: string
+): Promise<Invite[] | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      user_id: user_id,
+    },
+    select: {
+      sent_inv: true,
+    },
+  });
+
+  return user?.sent_inv as Invite[];
 }

@@ -8,21 +8,22 @@ generator client {
 }
 
 model User {
-  user_id    String   @id @default(uuid()) @map("_id")
-  user_name  String   @unique
-  first_name String
-  last_name  String
-  avatar     String   @default("")
-  role       String   @default("")
-  bio        String   @default("")
-  email      String   @unique
-  school     String   @default("")
-  skills     String[] @default([])
-  teamIDs    String[] @default([])
-  teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
-  eventIDs   String[] @default([])
-  events     Event[]  @relation(fields: [eventIDs], references: [event_id])
-  invites     Invite[] @relation("UserInvites")
+  user_id     String   @id @default(uuid()) @map("_id")
+  user_name   String   @unique
+  first_name  String
+  last_name   String
+  avatar      String   @default("")
+  role        String   @default("")
+  bio         String   @default("")
+  email       String   @unique
+  school      String   @default("")
+  skills      String[] @default([])
+  teamIDs     String[] @default([])
+  teams       Team[]   @relation(fields: [teamIDs], references: [team_id])
+  eventIDs    String[] @default([])
+  events      Event[]  @relation(fields: [eventIDs], references: [event_id])
+  sent_inv    Invite[] @relation("SendInvites")
+  receive_inv Invite[] @relation("ReceInvites")
 }
 
 model Team {
@@ -33,15 +34,17 @@ model Team {
   users       User[]   @relation(fields: [userIDs], references: [user_id])
   eventIDs    String[] @default([])
   events      Event[]  @relation(fields: [eventIDs], references: [event_id])
-  invites      Invite[] @relation("TeamInvites")
+  invites     Invite[] @relation("TeamInvites")
 }
 
 model Invite {
-  invite_id String @id @default(uuid()) @map("_id")
-  userID    String
-  user      User   @relation("UserInvites", fields: [userID], references: [user_id])
-  teamID    String
-  team      Team   @relation("TeamInvites", fields: [teamID], references: [team_id])
+  invite_id  String @id @default(uuid()) @map("_id")
+  senderID   String
+  sender     User   @relation("SendInvites", fields: [senderID], references: [user_id])
+  receiverID String
+  receiver   User   @relation("ReceInvites", fields: [receiverID], references: [user_id])
+  teamID     String
+  team       Team   @relation("TeamInvites", fields: [teamID], references: [team_id])
 }
 
 model Event {

@@ -1,28 +1,30 @@
-import { UserTeamForm } from "../forms";
+import { InviteForm, UserTeamForm } from "../forms";
 import prisma from "../../prisma/db";
 import { Invite } from "@prisma/client";
 import { addUserTeam } from "./users";
 
 
-export async function doesInviteExist(userTeamForm: UserTeamForm) {
+export async function doesInviteExist(inviteForm: InviteForm) {
    const invite = await prisma.invite.findFirst({
       where: {
-         userID: userTeamForm.userID,
-         teamID: userTeamForm.teamID
+         senderID: inviteForm.senderID,
+         receiverID: inviteForm.receiverID,
+         teamID: inviteForm.teamID
       }
    });
 
    return invite ? true : false;
 }
 
-export async function createInvite(userTeamForm: UserTeamForm) {
-   if (await doesInviteExist(userTeamForm)) {
+export async function createInvite(inviteForm: InviteForm) {
+   if (await doesInviteExist(inviteForm)) {
       return;
    }
    const invite = await prisma.invite.create({
       data: {
-         userID: userTeamForm.userID,
-         teamID: userTeamForm.teamID
+         senderID: inviteForm.senderID,
+         receiverID: inviteForm.receiverID,
+         teamID: inviteForm.teamID
       },
    });
 }
@@ -43,7 +45,7 @@ export async function completeInvite(accept: boolean, invite_id: string) {
 
    if (accept) {
       let userTeamForm: UserTeamForm = {
-         userID: invite.userID,
+         userID: invite.receiverID,
          teamID: invite.teamID
       }
 
