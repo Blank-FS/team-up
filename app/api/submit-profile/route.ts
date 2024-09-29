@@ -1,4 +1,4 @@
-import { createProfile, getInfo, hasProfile, updateProfile } from "@/lib/utils/users";
+import { getInfo, updateProfile } from "@/lib/utils/users";
 
 export async function POST(req: Request) {
   try {
