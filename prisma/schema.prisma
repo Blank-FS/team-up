@@ -19,7 +19,7 @@ model User {
   school     String   @default("")
   teamIDs    String[] @default([])
   teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
-  kills      String[] @default([])
+  skills      String[] @default([])
 
   @@unique([teamIDs])
 }

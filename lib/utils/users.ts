@@ -45,8 +45,7 @@ export async function getUserById(user_id: string): Promise<UserExtra | null> {
       user_id: user_id,
     },
     include: {
-      teams: true,
-      skills: true
+      teams: true
     }
   });
 
@@ -59,8 +58,7 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
       user_name: user_name,
     },
     include: {
-      teams: true,
-      skills: true
+      teams: true
     }
   });
 
@@ -68,7 +66,7 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
 }
 
 export async function getAllUsers(): Promise<UserExtra[] | null> {
-  const user = await prisma.user.findMany({ include: { teams: true, skills: true } });
+  const user = await prisma.user.findMany({ include: { teams: true } });
   return user;
 }
 
@@ -81,13 +79,9 @@ export async function addUserSkill(
   const updatedUser = await prisma.user.update({
     where: { user_id: userSkillForm.userID },
     data: {
-      skills: {
-        connect: [
-          {
-            skill_id: userSkillForm.skill_name
-          },
-        ],
-      }
+     skills: {
+      push: userSkillForm.skill_name
+     },
     },
   });
 }

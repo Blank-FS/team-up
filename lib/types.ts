@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 
 export type TeamExtra = Prisma.TeamGetPayload<{
-   include: { skills: true}
+   include: { users: true }
 }>
 
 export type UserExtra = Prisma.UserGetPayload<{

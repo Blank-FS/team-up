@@ -5,8 +5,7 @@ import { TeamExtra } from "../types";
 export async function getAllTeams(): Promise<TeamExtra[] | null> {
    const teams = await prisma.team.findMany({
       include: {
-         users: true,
-         skills: true,
+         users: true
       }
    });
 
@@ -27,8 +26,7 @@ export async function getTeamByName(team_name: string): Promise<TeamExtra | null
          team_name: team_name,
       },
       include: {
-         users: true,
-         skills: true
+         users: true
       }
    });
 

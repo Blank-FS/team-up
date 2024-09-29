@@ -1,4 +1,3 @@
-import { Skill } from "@prisma/client";
 
 export type UserForm = {
    user_name: string
