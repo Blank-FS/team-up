@@ -1,5 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useRouter } from "next/navigation"
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   bgColor?: string;
@@ -12,7 +14,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       ref={ref}
       className={cn(
         "rounded-lg border shadow-sm",
-        bgColor || "bg-card",
+        bgColor || "bg-[#CFC096] dark:bg-[#9A3324]",
         textColor || "text-card-foreground",
         className
       )}
@@ -26,16 +28,38 @@ interface TextColorProps {
   textColor?: string;
 }
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & TextColorProps
->(({ className, textColor, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", textColor, className)}
-    {...props}
-  />
-))
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, TextColorProps {
+  user?: {
+    picture?: string;
+    name?: string;
+    nickname?: string;
+  };
+}
+
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
+  ({ className, textColor, user, children, ...props }, ref) => {
+    const router = useRouter()
+
+    return (
+      <div
+        ref={ref}
+        className={cn("flex items-start space-x-4 p-6", textColor, className)}
+        {...props}
+      >
+        {user && (
+          <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
+            <AvatarImage
+              src={user.picture ?? ""}
+              alt={user.name ?? "User"}
+            />
+            <AvatarFallback>{user.nickname}</AvatarFallback>
+          </Avatar>
+        )}
+        <div className="flex-1">{children}</div>
+      </div>
+    )
+  }
+)
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<

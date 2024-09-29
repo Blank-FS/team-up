@@ -52,8 +52,8 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     ctaLink: "",
     content: (
       <Card className="w-full">
-        <CardHeader>
-          <CardTitle>{user.user_name}</CardTitle>
+        <CardHeader> 
+          <CardTitle textColor="text-[#00274C] dark:text-[#FFCB05]">{user.user_name}</CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">{user.role}</Badge>
             {user.skills.map((skill, index) => (
