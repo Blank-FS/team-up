@@ -119,7 +119,7 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
       </div>
     ),
     ctaText: "Close",
-    ctaLink: "",
+    ctaLink: "#",
     content: (
       <div className="max-h-96 overflow-y-auto p-4">
         <h3 className="text-xl">
