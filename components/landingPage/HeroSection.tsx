@@ -7,6 +7,7 @@ import photo2 from "../assets/photo2.jpg";
 import photo3 from "../assets/photo3.jpg";
 import photo4 from "../assets/photo4.jpg";
 import { Button } from "../../components/ui/button";
+import Link from "next/link";
 
 export default function Footer() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -28,9 +29,14 @@ export default function Footer() {
             Form your dream hackathon team with ease. <br />
             Connect, collaborate, and create amazing projects together.
           </p>
-          <Button size="lg" className="text-lg px-8 py-4">
-            Start Teaming Up
-          </Button>
+          <Link
+            href="/home"
+            className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >
+            <Button size="lg" className="text-lg px-8 py-4">
+              Start Teaming Up
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="w-full lg:w-1/2 relative overflow-hidden">

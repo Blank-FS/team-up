@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { ThemeSwitch } from "../theme-switch";
 import { useRouter } from "next/navigation";
@@ -9,6 +8,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MAIZE } from "@/lib/constants";
 import { BLUE } from "@/lib/constants";
+import Link from "next/link";
 
 export default function Navigation() {
   const router = useRouter();
@@ -60,37 +60,52 @@ export default function Navigation() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link style={{ color: MAIZE}}
+              <Link
                 href="/home"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Dashboard
               </Link>
-              <Link style={{ color: MAIZE}}
-                href= "#why-choose-it"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              
+              <Link
+                href="#why-choose-it"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"  
               >
                 Why Choose TeamUp
               </Link>
-              <Link style={{ color: MAIZE}}
+              
+              <Link
                 href="#how-it-works"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 How TeamUp Works
               </Link>
-              <Link style={{ color: MAIZE}}
-                href="#"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
-              >
-                About
-              </Link>
             </div>
           </div>
-          <div className="hidden md:block">
-            <Button variant="outline" className="mr-2">
-              Login
-            </Button>
-            <Button style={{ backgroundColor: "#4B5563" }} className="dark:bg-white">Sign Up</Button>
+          <div className="flex flex-row items-center justify-center gap-3">
+            <ThemeSwitch />
+            {user ? (
+              <div className="flex items-center gap-3">
+                <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
+                  <AvatarImage
+                    src={user.picture ?? ""}
+                    alt={user.name ?? "User"}
+                  />
+                  <AvatarFallback>{user.nickname}</AvatarFallback>
+                </Avatar>
+              </div>
+            ) : (
+              <>
+                <div className="hidden md:block">
+            <Link 
+                href="/api/auth/login"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                <Button className = "bg-[#FFCB05] text-[#00274C] hover:bg-[#375A7F] hover:text-[#FDFD96] px-4 py-2 rounded">Get started</Button>
+              </Link>
+          </div>
+              </>
+            )}
           </div>
         </div>
       </div>
