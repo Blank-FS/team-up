@@ -3,6 +3,7 @@
 import FindTab from "@/components/dashboard/FindTab";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import TeamsTab from "@/components/dashboard/TeamsTab";
+import PendingTab from "@/components/dashboard/PendingTab";
 import Navbar from "@/components/Navbar";
 import { CustomSidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -19,6 +20,8 @@ export default function Tab({ currentUser, availableUsers, teams }: any) {
         return <FindTab availableUsers={availableUsers} />;
       case "Teams":
         return <TeamsTab teams={teams} />;
+      case "Pending":
+      return <PendingTab currentUser={currentUser} />;
       default:
         return null;
     }
