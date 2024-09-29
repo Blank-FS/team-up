@@ -12,6 +12,7 @@ interface CardContent {
   ctaText: string;
   ctaLink: string;
   content: React.ReactNode | (() => React.ReactNode);
+  normal: React.ReactNode;
 }
 
 interface ExpandableCardProps {
@@ -90,7 +91,7 @@ export function ExpandableCard({
               </motion.div>
 
               <div>
-                <div className="flex justify-between items-start p-4">
+                <div className="flex items-start p-4">
                   <div>
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
@@ -118,13 +119,13 @@ export function ExpandableCard({
                     {active.ctaText}
                   </motion.a>
                 </div>
-                <div className="pt-4 relative px-4">
+                <div className="relative px-4">
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-30 md:h-fit pb-5 flex flex-col items-start gap-2 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
                     {typeof active.content === "function"
                       ? active.content()
@@ -136,42 +137,18 @@ export function ExpandableCard({
           </div>
         )}
       </AnimatePresence>
-      <ul className="max-w-2xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4">
+      <div className="flex gap-3 flex-wrap">
         {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className=" hover:bg-neutral-50 dark:hover:bg-neutral-800 cursor-pointer border-2px rounded-lg width-full height-80px bg-[#CFC096] dark:bg-[#655A52] p-4 flex-1 min-w-[30%] max-w-[32%] flex align-center"
           >
-            <div className="flex gap-4 flex-col w-full">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
-                <Image
-                  width={100}
-                  height={100}
-                  src={card.src}
-                  alt={card.title}
-                  className="h-60 w-full rounded-lg object-cover object-top"
-                />
-              </motion.div>
-              <div className="flex justify-center items-center flex-col">
-                <motion.h3
-                  layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-base"
-                >
-                  {card.title}
-                </motion.h3>
-                <motion.p
-                  layoutId={`description-${card.description}-${id}`}
-                  className="text-neutral-600 dark:text-neutral-400 text-center md:text-left text-base"
-                >
-                  {card.description}
-                </motion.p>
-              </div>
-            </div>
+            {card.normal}
           </motion.div>
         ))}
-      </ul>
+      </div>
     </>
   );
 }

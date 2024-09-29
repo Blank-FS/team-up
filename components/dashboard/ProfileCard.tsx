@@ -20,7 +20,7 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ pfp, name, skills, username }: ProfileCardProps) => {
   return (
-    <div className="border-2px rounded-lg width-full height-80px bg-[#CFC096] dark:bg-[#655A52] p-4 flex-1 min-w-[30%] max-w-[32%] flex align-center">
+    <div className="">
       <div className="flex gap-2 justify-self-center">
         <Avatar className="h-20 w-20">
           <AvatarImage src={pfp} alt={name} />
@@ -33,7 +33,7 @@ const ProfileCard = ({ pfp, name, skills, username }: ProfileCardProps) => {
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
               <Badge
-                className="bg-black dark:bg-[#CFC096] dark:text-slate-600"
+                className="bg-black dark:bg-[#CFC096] dark:text-slate-600 text-slate-400"
                 key={index}
                 variant="outline"
               >
