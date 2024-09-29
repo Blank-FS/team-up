@@ -100,6 +100,23 @@ export async function addUserTeam(
   });
 }
 
+export async function removeUserTeam(
+  userTeamForm: UserTeamForm
+) {
+  const updatedUser = await prisma.user.update({
+    where: { user_id: userTeamForm.userID },
+    data: {
+      teams: {
+        disconnect: [
+          {
+            team_id: userTeamForm.teamID
+          },
+        ],
+      }
+    },
+  });
+}
+
 export async function getUpdateUserFormByEmail(email: string): Promise<UserForm | null> {
   const user = await prisma.user.findUnique({
     where: { email: email },
@@ -137,4 +154,17 @@ export async function updateUser(
       skills: user.skills
     },
   });
+}
+
+export async function getAllUserSkill(user_id: string): Promise<string[] | null> {
+  const user = await prisma.user.findUnique({
+     where: {
+        user_id: user_id
+     },
+     select: {
+        skills: true
+     }
+  });
+
+  return user?.skills as string[];
 }
