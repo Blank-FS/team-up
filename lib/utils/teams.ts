@@ -3,6 +3,7 @@ import prisma from "../../prisma/db";
 import { TeamExtra } from "../types";
 import { Users } from "lucide-react";
 import { getAllUserSkill } from "./users";
+import { TeamForm } from "../forms";
 
 export async function getAllTeams(): Promise<TeamExtra[] | null> {
    const teams = await prisma.team.findMany({
@@ -63,4 +64,28 @@ export async function getAllTeamSkills(team_name: string): Promise<Set<string> |
    }
 
    return skills as Set<string>;
+}
+
+export async function getTeamFormByTeamName(team_name: string): Promise<TeamForm | null> {
+   const team = await prisma.team.findUnique({
+      where: {
+         team_name: team_name
+      },
+      select: {
+         team_id: true,
+         team_name: true,
+         description: true
+      }
+   });
+
+   return team;
+}
+
+export async function updateTeam(team: TeamForm) {
+   const updatedProfile = await prisma.team.update({
+      where: {
+         team_id: team.team_id,
+      },
+      data: team,
+   });
 }
