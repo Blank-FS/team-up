@@ -35,5 +35,5 @@ export async function createProfile(formData: User) {
 export async function getInfo() {
   const session = await getSession();
   const user = session?.user as User;
-  console.log(user);
+  return user;
 }
