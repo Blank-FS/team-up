@@ -1,7 +1,7 @@
 import { getSession } from "@auth0/nextjs-auth0";
+import type { User } from "@prisma/client";
 import prisma from "../../prisma/db";
-import type { User } from '@prisma/client'
-import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
+import { UserForm, UserSkillForm, UserTeamForm } from "../forms";
 import { UserExtra } from "../types";
 
 // Check if current user in session has profile, return true if user has profile
@@ -30,9 +30,19 @@ export async function createProfile(user: UserForm) {
   });
 }
 
+export async function updateProfile(email: string, user: Partial<UserForm>) {
+  const updatedProfile = await prisma.user.update({
+    where: {
+      email: email,
+    },
+    data: user,
+  });
+  return updatedProfile;
+}
+
 export async function getInfo() {
   const session = await getSession();
-  const user = session?.user as UserExtra;
+  const user = session?.user as User;
   return user;
 }
 
@@ -43,8 +53,8 @@ export async function getUserById(user_id: string): Promise<UserExtra | null> {
     },
     include: {
       teams: true,
-      events: true
-    }
+      events: true,
+    },
   });
 
   return user;
@@ -57,21 +67,21 @@ export async function getUserByEmail(email: string): Promise<UserExtra | null> {
     },
     include: {
       teams: true,
-      events: true
-    }
+      events: true,
+    },
   });
 
   return user;
 }
 
 export async function getAllUsers(): Promise<UserExtra[] | null> {
-  const user = await prisma.user.findMany({ include: { teams: true, events: true} });
+  const user = await prisma.user.findMany({
+    include: { teams: true, events: true },
+  });
   return user;
 }
 
-export async function addUserSkill(
-  userSkillForm: UserSkillForm
-) {
+export async function addUserSkill(userSkillForm: UserSkillForm) {
   const session = await getSession();
   const user = session?.user as User;
 
@@ -79,47 +89,45 @@ export async function addUserSkill(
     where: { user_id: userSkillForm.userID },
     data: {
       skills: {
-        push: userSkillForm.skill_name
+        push: userSkillForm.skill_name,
       },
     },
   });
 }
 
-export async function addUserTeam(
-  userTeamForm: UserTeamForm
-) {
+export async function addUserTeam(userTeamForm: UserTeamForm) {
   const updatedUser = await prisma.user.update({
     where: { user_id: userTeamForm.userID },
     data: {
       teams: {
         connect: [
           {
-            team_id: userTeamForm.teamID
+            team_id: userTeamForm.teamID,
           },
         ],
-      }
+      },
     },
   });
 }
 
-export async function removeUserTeam(
-  userTeamForm: UserTeamForm
-) {
+export async function removeUserTeam(userTeamForm: UserTeamForm) {
   const updatedUser = await prisma.user.update({
     where: { user_id: userTeamForm.userID },
     data: {
       teams: {
         disconnect: [
           {
-            team_id: userTeamForm.teamID
+            team_id: userTeamForm.teamID,
           },
         ],
-      }
+      },
     },
   });
 }
 
-export async function getUpdateUserFormByEmail(email: string): Promise<UserForm | null> {
+export async function getUpdateUserFormByEmail(
+  email: string
+): Promise<UserForm | null> {
   const user = await prisma.user.findUnique({
     where: { email: email },
     select: {
@@ -132,16 +140,14 @@ export async function getUpdateUserFormByEmail(email: string): Promise<UserForm 
       bio: true,
       email: true,
       school: true,
-      skills: true
-    }
+      skills: true,
+    },
   });
 
   return user;
 }
 
-export async function updateUser(
-  user: UserForm
-) {
+export async function updateUser(user: UserForm) {
   const updatedUser = await prisma.user.update({
     where: { user_id: user.user_id },
     data: {
@@ -153,19 +159,21 @@ export async function updateUser(
       bio: user.bio,
       email: user.email,
       school: user.school,
-      skills: user.skills
+      skills: user.skills,
     },
   });
 }
 
-export async function getAllUserSkill(user_id: string): Promise<string[] | null> {
+export async function getAllUserSkill(
+  user_id: string
+): Promise<string[] | null> {
   const user = await prisma.user.findUnique({
-     where: {
-        user_id: user_id
-     },
-     select: {
-        skills: true
-     }
+    where: {
+      user_id: user_id,
+    },
+    select: {
+      skills: true,
+    },
   });
 
   return user?.skills as string[];

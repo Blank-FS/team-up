@@ -1,7 +1,6 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -45,25 +44,80 @@ const StepContent: React.FC<StepContentProps> = ({
       return (
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="first_name">First Name</Label>
             <Controller
-              name="name"
+              name="first_name"
               control={control}
               render={({ field }) => (
                 <Input
-                  id="name"
-                  placeholder="Enter your full name"
+                  id="first_name"
+                  placeholder="Enter your first name"
                   {...field}
                 />
               )}
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.first_name && (
+              <p className="text-red-500 text-sm">
+                {errors.first_name.message}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="last_name">Last Name</Label>
+            <Controller
+              name="last_name"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id="last_name"
+                  placeholder="Enter your last name"
+                  {...field}
+                />
+              )}
+            />
+            {errors.last_name && (
+              <p className="text-red-500 text-sm">{errors.last_name.message}</p>
             )}
           </div>
         </div>
       );
     case 1:
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="role">Role</Label>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <Input id="role" placeholder="Enter your role" {...field} />
+              )}
+            />
+            {errors.role && (
+              <p className="text-red-500 text-sm">{errors.role.message}</p>
+            )}
+          </div>
+        </div>
+      );
+    case 2:
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="bio">Bio</Label>
+            <Controller
+              name="bio"
+              control={control}
+              render={({ field }) => (
+                <Textarea id="bio" placeholder="Enter a short bio" {...field} />
+              )}
+            />
+            {errors.bio && (
+              <p className="text-red-500 text-sm">{errors.bio.message}</p>
+            )}
+          </div>
+        </div>
+      );
+    case 3:
       return (
         <div className="space-y-4">
           <div className="space-y-2">
@@ -85,44 +139,10 @@ const StepContent: React.FC<StepContentProps> = ({
           </div>
         </div>
       );
-    case 2:
+    case 4:
       return (
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="graduationYear">Graduation Year</Label>
-            <Controller
-              name="graduationYear"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select graduation year" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[...Array(6)].map((_: undefined, i: number) => (
-                      <SelectItem
-                        key={i}
-                        value={(new Date().getFullYear() + i).toString()}
-                      >
-                        {new Date().getFullYear() + i}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.graduationYear && (
-              <p className="text-red-500 text-sm">
-                {errors.graduationYear.message}
-              </p>
-            )}
-          </div>
-        </div>
-      );
-    case 3:
-      return (
-        <div className="space-y-4">
-          <Label>Skills (Select at least one or add custom skills)</Label>
+          <Label>Skills (Select at least one)</Label>
           <div className="grid grid-cols-2 gap-2">
             {predefinedSkills.map((skill) => (
               <div key={skill} className="flex items-center space-x-2">
@@ -140,6 +160,9 @@ const StepContent: React.FC<StepContentProps> = ({
               </div>
             ))}
           </div>
+          {errors.skills && (
+            <p className="text-red-500 text-sm">{errors.skills.message}</p>
+          )}
           <div className="space-y-2">
             <Label htmlFor="customSkills">Custom Skills</Label>
             <Controller
@@ -148,168 +171,29 @@ const StepContent: React.FC<StepContentProps> = ({
               render={({ field }) => (
                 <Input
                   id="customSkills"
-                  placeholder="Enter custom skills (comma-separated)"
+                  placeholder="Enter your custom skills, separated by commas"
                   {...field}
+                  onBlur={(e) => {
+                    const customSkills = e.target.value
+                      .split(",")
+                      .map((skill) => skill.trim())
+                      .filter((skill) => skill);
+                    setValue("skills", [...formData.skills, ...customSkills]);
+                  }}
                 />
               )}
             />
-            {errors.skills && (
-              <p className="text-red-500 text-sm">{errors.skills.message}</p>
+            {errors.customSkills && (
+              <p className="text-red-500 text-sm">
+                {errors.customSkills.message}
+              </p>
             )}
           </div>
-        </div>
-      );
-    case 4:
-      return (
-        <div className="space-y-4">
-          {formData.experiences.map(
-            (
-              exp: {
-                title: string;
-                company: string;
-                startDate: string;
-                endDate: string;
-                description: string;
-              },
-              index: number
-            ) => (
-              <Card key={index} className="p-4">
-                <div className="space-y-2">
-                  <Label htmlFor={`title-${index}`}>Job Title</Label>
-                  <Controller
-                    name={`experiences.${index}.title`}
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        id={`title-${index}`}
-                        placeholder="e.g. Software Engineer"
-                        {...field}
-                      />
-                    )}
-                  />
-                  {errors.experiences?.[index]?.title && (
-                    <p className="text-red-500 text-sm">
-                      {errors.experiences[index].title.message}
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-2 mt-2">
-                  <Label htmlFor={`company-${index}`}>Company</Label>
-                  <Controller
-                    name={`experiences.${index}.company`}
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        id={`company-${index}`}
-                        placeholder="e.g. Tech Corp"
-                        {...field}
-                      />
-                    )}
-                  />
-                  {errors.experiences?.[index]?.company && (
-                    <p className="text-red-500 text-sm">
-                      {errors.experiences[index].company.message}
-                    </p>
-                  )}
-                </div>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  <div className="space-y-2">
-                    <Label htmlFor={`startDate-${index}`}>Start Date</Label>
-                    <Controller
-                      name={`experiences.${index}.startDate`}
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          id={`startDate-${index}`}
-                          type="date"
-                          {...field}
-                        />
-                      )}
-                    />
-                    {errors.experiences?.[index]?.startDate && (
-                      <p className="text-red-500 text-sm">
-                        {errors.experiences[index].startDate.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor={`endDate-${index}`}>End Date</Label>
-                    <Controller
-                      name={`experiences.${index}.endDate`}
-                      control={control}
-                      render={({ field }) => (
-                        <Input id={`endDate-${index}`} type="date" {...field} />
-                      )}
-                    />
-                    {errors.experiences?.[index]?.endDate && (
-                      <p className="text-red-500 text-sm">
-                        {errors.experiences[index].endDate.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="space-y-2 mt-2">
-                  <Label htmlFor={`description-${index}`}>Description</Label>
-                  <Controller
-                    name={`experiences.${index}.description`}
-                    control={control}
-                    render={({ field }) => (
-                      <Textarea
-                        id={`description-${index}`}
-                        placeholder="Describe your role and responsibilities"
-                        {...field}
-                      />
-                    )}
-                  />
-                </div>
-                {index > 0 && (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => {
-                      const newExperiences = formData.experiences.filter(
-                        (_: any, i: number) => i !== index
-                      );
-                      setValue("experiences", newExperiences);
-                    }}
-                    className="mt-2"
-                  >
-                    Remove Experience
-                  </Button>
-                )}
-              </Card>
-            )
-          )}
-          <Button
-            type="button"
-            onClick={() => {
-              const newExperiences = [
-                ...formData.experiences,
-                {
-                  title: "",
-                  company: "",
-                  startDate: "",
-                  endDate: "",
-                  description: "",
-                },
-              ];
-              setValue("experiences", newExperiences);
-            }}
-            className="w-full"
-          >
-            Add Another Experience
-          </Button>
-          <Button
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            className={`ml-auto ${
-              validateStep(currentStep) ? "" : "bg-muted text-muted-foreground"
-            }`}
-            disabled={!validateStep(currentStep)}
-          >
-            Submit
-          </Button>
+          <div className="flex justify-start pt-10">
+            <Button type="submit" onClick={handleSubmit(onSubmit)}>
+              Submit
+            </Button>
+          </div>
         </div>
       );
     default:

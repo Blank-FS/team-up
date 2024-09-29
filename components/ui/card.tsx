@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useRouter } from "next/navigation"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   bgColor?: string;
@@ -14,21 +14,23 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       ref={ref}
       className={cn(
         "rounded-lg border shadow-sm",
-        bgColor || "bg-[#CFC096] dark:bg-[#9A3324]",
+        // bgColor || "bg-[#CFC096] dark:bg-[#9A3324]",
         textColor || "text-card-foreground",
         className
       )}
       {...props}
     />
   )
-)
-Card.displayName = "Card"
+);
+Card.displayName = "Card";
 
 interface TextColorProps {
   textColor?: string;
 }
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, TextColorProps {
+interface CardHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    TextColorProps {
   user?: {
     picture?: string;
     name?: string;
@@ -38,7 +40,7 @@ interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, TextColo
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, textColor, user, children, ...props }, ref) => {
-    const router = useRouter()
+    const router = useRouter();
 
     return (
       <div
@@ -47,20 +49,20 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
         {...props}
       >
         {user && (
-          <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
-            <AvatarImage
-              src={user.picture ?? ""}
-              alt={user.name ?? "User"}
-            />
+          <Avatar
+            className="hover:cursor-pointer"
+            onClick={() => router.push("/home")}
+          >
+            <AvatarImage src={user.picture ?? ""} alt={user.name ?? "User"} />
             <AvatarFallback>{user.nickname}</AvatarFallback>
           </Avatar>
         )}
         <div className="flex-1">{children}</div>
       </div>
-    )
+    );
   }
-)
-CardHeader.displayName = "CardHeader"
+);
+CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
@@ -75,8 +77,8 @@ const CardTitle = React.forwardRef<
     )}
     {...props}
   />
-))
-CardTitle.displayName = "CardTitle"
+));
+CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -87,16 +89,16 @@ const CardDescription = React.forwardRef<
     className={cn("text-sm", textColor || "text-muted-foreground", className)}
     {...props}
   />
-))
-CardDescription.displayName = "CardDescription"
+));
+CardDescription.displayName = "CardDescription";
 
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & TextColorProps
 >(({ className, textColor, ...props }, ref) => (
   <div ref={ref} className={cn("p-6 pt-0", textColor, className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+));
+CardContent.displayName = "CardContent";
 
 const CardFooter = React.forwardRef<
   HTMLDivElement,
@@ -107,7 +109,14 @@ const CardFooter = React.forwardRef<
     className={cn("flex items-center p-6 pt-0", textColor, className)}
     {...props}
   />
-))
-CardFooter.displayName = "CardFooter"
+));
+CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+};

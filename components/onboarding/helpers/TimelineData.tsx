@@ -1,6 +1,7 @@
 import React from "react";
 import StepContent from "./StepContent";
 import { Timeline } from "@/components/ui/timeline";
+import { Button } from "@/components/ui/button";
 
 interface TimelineDataProps {
   currentStep: number;
@@ -101,7 +102,11 @@ const TimelineData: React.FC<TimelineDataProps> = ({
     },
   ];
 
-  return <Timeline data={timelineData} />;
+  return (
+    <div className="no-scrollbar">
+      <Timeline data={timelineData} />
+    </div>
+  );
 };
 
 export default TimelineData;

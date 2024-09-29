@@ -34,10 +34,13 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-screen bg-white dark:bg-neutral-950 font-sans md:px-10 overflow-x-hidden"
+      className="w-screen no-scrollbar bg-white dark:bg-neutral-950 font-sans md:px-10 overflow-x-hidden"
       ref={containerRef}
     >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20 overflow-x-hidden">
+      <div
+        ref={ref}
+        className="relative max-w-7xl mx-auto pb-20 overflow-x-hidden"
+      >
         {data.map((item, index) => (
           <div
             key={index}

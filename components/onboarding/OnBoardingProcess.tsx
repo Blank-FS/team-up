@@ -14,14 +14,12 @@ export default function OnboardingProcess() {
   const methods = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      first_name: "",
+      last_name: "",
+      role: "",
+      bio: "",
       school: "",
-      graduationYear: "",
-      skills: [""],
-      customSkills: "",
-      experiences: [
-        { title: "", company: "", startDate: "", endDate: "", description: "" },
-      ],
+      skills: [],
     },
   });
 
@@ -38,29 +36,60 @@ export default function OnboardingProcess() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const onSubmit = (data: any) => {
-    console.log("Form submitted:", data);
-    toast({
-      title: "Onboarding Complete",
-      description: "Your information has been successfully submitted.",
-    });
+  const onSubmit = async (data: any) => {
+    if (validateStep(currentStep)) {
+      try {
+        const response = await fetch("/api/submit-profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          toast({
+            title: "Onboarding Complete",
+            description: "Your information has been successfully submitted.",
+          });
+        } else {
+          toast({
+            title: "Submission Error",
+            description: "There was an error submitting your information.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Submission Error",
+          description: "There was an error submitting your information.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      toast({
+        title: "Validation Error",
+        description: "Please fill out the required fields.",
+        variant: "destructive",
+      });
+    }
   };
 
   const validateStep = (step: number) => {
     const values = getValues();
     switch (step) {
       case 0:
-        return values.name.trim() !== "";
-      case 1:
-        return values.school.trim() !== "";
-      case 2:
-        return values.graduationYear !== "";
-      case 3:
-        return values.skills.length > 0 || values.customSkills.trim() !== "";
-      case 4:
-        return values.experiences.some(
-          (exp) => exp.title.trim() !== "" && exp.company.trim() !== ""
+        return (
+          values.first_name.trim() !== "" && values.last_name.trim() !== ""
         );
+      case 1:
+        return values.role.trim() !== "";
+      case 2:
+        return values.bio.trim() !== "";
+      case 3:
+        return values.school.trim() !== "";
+      case 4:
+        return values.skills.length > 0;
       default:
         return false;
     }
@@ -68,7 +97,7 @@ export default function OnboardingProcess() {
 
   return (
     <FormProvider {...methods}>
-      <div className="flex items-center justify-start w-screen min-h-screen">
+      <div className="flex items-center justify-start w-full min-h-screen no-scrollbar">
         <Card className="w-[350px] sm:w-[450px] border-none">
           <CardHeader>
             <CardTitle>Update your information to team up!</CardTitle>
