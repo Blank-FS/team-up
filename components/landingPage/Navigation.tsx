@@ -1,15 +1,18 @@
-"use client";
-
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { ThemeSwitch } from "../theme-switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MAIZE } from "@/lib/constants";
-import { BLUE } from "@/lib/constants";
+import { MAIZE, BLUE } from "@/lib/constants";
 
-export default function Navigation() {
+interface NavigationProps {
+  whyChooseRef: React.RefObject<HTMLDivElement>;
+  howItWorksRef: React.RefObject<HTMLDivElement>;
+}
+
+export default function Navigation({ whyChooseRef, howItWorksRef }: NavigationProps) {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { user } = useUser();
@@ -28,13 +31,19 @@ export default function Navigation() {
     router.push("/api/auth/logout");
   };
 
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <nav style={{ backgroundColor: BLUE}} className="dark:bg-gray-800 shadow-md">
+    <nav style={{ backgroundColor: BLUE }} className="dark:bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <svg style={{ color: MAIZE}}
+              <svg style={{ color: MAIZE }}
                 className="h-8 w-8 text-primary mr-2"
                 viewBox="0 0 100 100"
                 fill="none"
@@ -54,7 +63,9 @@ export default function Navigation() {
                 <path d="M65 60 L50 85" stroke="currentColor" strokeWidth="2" />
                 <path d="M35 60 L65 60" stroke="currentColor" strokeWidth="2" />
               </svg>
-              <span style={{ color: MAIZE}} className="text-xl font-bold text-primary">TeamUp</span>
+              <span style={{ color: MAIZE }} className="text-xl font-bold text-primary">
+                TeamUp
+              </span>
             </Link>
           </div>
           <div className="hidden md:block">
@@ -65,20 +76,20 @@ export default function Navigation() {
               >
                 Dashboard
               </Link>
-              
-              <Link
-                href="#why-choose-it"
-                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"  
+
+              <button
+                onClick={() => scrollToSection(whyChooseRef)}
+                className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Why Choose TeamUp
-              </Link>
-              
-              <Link
-                href="#how-it-works"
+              </button>
+
+              <button
+                onClick={() => scrollToSection(howItWorksRef)}
                 className="text-[#FFCB05] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 How TeamUp Works
-              </Link>
+              </button>
             </div>
           </div>
           <div className="flex flex-row items-center justify-center gap-3">
@@ -94,16 +105,14 @@ export default function Navigation() {
                 </Avatar>
               </div>
             ) : (
-              <>
-                <div className="hidden md:block">
-            <Link 
-                href="/api/auth/login"
-                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
-              >
-                <Button className = "bg-[#FFCB05] text-[#00274C] hover:bg-[#375A7F] hover:text-[#FDFD96] px-4 py-2 rounded">Get started</Button>
-              </Link>
-          </div>
-              </>
+              <div className="hidden md:block">
+                <Link 
+                  href="/api/auth/login"
+                  className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  <Button className="bg-[#FFCB05] text-[#00274C] hover:bg-[#375A7F] hover:text-[#FDFD96] px-4 py-2 rounded">Get started</Button>
+                </Link>
+              </div>
             )}
           </div>
         </div>
