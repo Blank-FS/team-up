@@ -21,10 +21,11 @@ import Image from "next/image";
 import photo1 from "./assets/photo1.jpg";
 import photo2 from "./assets/photo2.jpg";
 import photo3 from "./assets/photo3.jpg";
+import photo4 from "./assets/photo4.jpg";
 
 export default function LandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [photo1, photo2, photo3];
+  const images = [photo1, photo2, photo3, photo4];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,7 +43,7 @@ export default function LandingPage() {
           <div className="w-full lg:w-1/2 bg-gradient-to-br from-primary/20 to-primary/30 p-8 flex flex-col justify-center">
             <div className="max-w-md mx-auto">
               <h1 className="text-5xl font-bold mb-6">TeamUp</h1>
-              <p className="text-2xl mb-8">
+              <p className="text-lg mb-8">
                 Form your dream hackathon team with ease. Connect, collaborate,
                 and create amazing projects together.
               </p>
