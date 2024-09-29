@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { UserExtra } from "@/lib/types";
+import { TeamExtra, UserExtra } from "@/lib/types";
+import React, { useEffect, useState } from "react";
+
 
 interface Invite {
   invite_id: string;
@@ -17,6 +18,7 @@ interface Invite {
   receiverID: string;
   receiver: UserExtra;
   teamID: string;
+  team: TeamExtra;
 }
 
 const InvitesCard: React.FC = () => {
@@ -37,14 +39,14 @@ const InvitesCard: React.FC = () => {
     fetchInvites();
   }, []);
 
-  const handleAccept = async (invite_id: string) => {
+  const handleAccept = async (accept: boolean, invite_id: string) => {
     try {
       const response = await fetch(`/api/accept-invite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ invite_id }),
+        body: JSON.stringify({ accept, invite_id }),
       });
 
       if (response.ok) {
@@ -69,14 +71,14 @@ const InvitesCard: React.FC = () => {
     }
   };
 
-  const handleReject = async (invite_id: string) => {
+  const handleReject = async (accept: boolean, invite_id: string) => {
     try {
-      const response = await fetch(`/api/reject-invite`, {
+      const response = await fetch(`/api/accept-invite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ invite_id }),
+        body: JSON.stringify({ accept, invite_id }),
       });
 
       if (response.ok) {
@@ -113,17 +115,26 @@ const InvitesCard: React.FC = () => {
             <p>No invites available</p>
           ) : (
             invites.map((invite) => (
-              <div key={invite.invite_id} className="flex justify-between items-center">
+              <div
+                key={invite.invite_id}
+                className="flex justify-between items-center"
+              >
                 <div>
                   <p>Invite ID: {invite.invite_id}</p>
                   <p>Sender ID: {invite.sender.user_name}</p>
-                  <p>Team ID: {invite.teamID}</p>
+                  <p>Team ID: {invite.team.team_name}</p>
                 </div>
                 <div className="flex space-x-2">
-                  <Button onClick={() => handleAccept(invite.invite_id)} className="bg-green-500 text-white">
+                  <Button
+                    onClick={() => handleAccept(true, invite.invite_id)}
+                    className="bg-green-500 text-white"
+                  >
                     Accept
                   </Button>
-                  <Button onClick={() => handleReject(invite.invite_id)} className="bg-red-500 text-white">
+                  <Button
+                    onClick={() => handleReject(false, invite.invite_id)}
+                    className="bg-red-500 text-white"
+                  >
                     Reject
                   </Button>
                 </div>

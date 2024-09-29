@@ -39,6 +39,20 @@ export async function getTeamByName(team_name: string): Promise<TeamExtra | null
    return team;
 }
 
+export async function getTeamById(team_id: string): Promise<TeamExtra | null> {
+   const team = await prisma.team.findUnique({
+      where: {
+         team_id: team_id,
+      },
+      include: {
+         users: true,
+         events: true
+      }
+   });
+
+   return team;
+}
+
 export async function getTeamUsers(team_name: string): Promise<User[] | null> {
    const team = await prisma.team.findUnique({
       where: {
