@@ -143,7 +143,7 @@ export function ExpandableCard1({
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className=" hover:bg-neutral-50 dark:hover:bg-neutral-800 cursor-pointer border-2px rounded-lg width-full height-80px bg-[#CFC096] dark:bg-[#655A52] p-4 flex-1 min-w-[30%] max-w-[32%] flex align-center"
           >
             {card.normal}
           </motion.div>
