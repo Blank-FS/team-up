@@ -13,10 +13,10 @@ interface ProfileTabProps {
 
 const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
   return (
-    <Card>
+    <Card bgColor="bg-[#CFC096]">
       <CardHeader>
         <CardTitle>{currentUser.user_name}</CardTitle>
-        <CardDescription>{currentUser.role}</CardDescription>
+        <CardDescription textColor="text-[#00274C]">{currentUser.role}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
