@@ -5,7 +5,7 @@ import Tab from "@/components/dashboard/Tab";
 
 export default async function Dashboard() {
   const currentUser: UserExtra | null = await getUserByName("kennyli306");
-  const availableUsers = await getAllUsers();
+  const availableUsers : UserExtra[] | null = await getAllUsers();
   const teams = await getAllTeams();
 
   return (
