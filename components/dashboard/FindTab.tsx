@@ -27,6 +27,7 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
 
   const filteredUsers = availableUsers.filter(
     (user) =>
+      user.school.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.user_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (user.skills.some((skill) =>

@@ -10,15 +10,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { MAIZE } from "@/lib/constants";
 import { BLUE } from "@/lib/constants";
 import Link from "next/link";
+import React from "react";
 
 const Navbar = () => {
   const { user } = useUser();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
