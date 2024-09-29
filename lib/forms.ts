@@ -14,6 +14,6 @@ export type UserSkillForm = {
 };
 
 export type UserTeamForm = {
-   user_name: string;
-   team: Team;
+   userID: string;
+   teamID: string;
 };
