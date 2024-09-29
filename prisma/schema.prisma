@@ -12,6 +12,7 @@ model User {
   user_name  String   @unique
   first_name String
   last_name  String
+  avatar     String   @default("")
   role       String   @default("")
   bio        String   @default("")
   email      String   @unique
