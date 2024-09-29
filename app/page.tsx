@@ -21,8 +21,10 @@ import Image from "next/image";
 import photo1 from "./assets/photo1.jpg";
 import photo2 from "./assets/photo2.jpg";
 import photo3 from "./assets/photo3.jpg";
+import { getInfo } from "@/lib/utils/users";
 
 export default function LandingPage() {
+  getInfo();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [photo1, photo2, photo3];
 

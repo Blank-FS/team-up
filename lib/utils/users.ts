@@ -2,7 +2,6 @@ import { getSession } from "@auth0/nextjs-auth0";
 import prisma from "../../prisma/db";
 import { User, Skill, Team } from "../types";
 import { UserForm } from "../forms";
-import { UserSkillForm } from "../forms";
 
 // Check if current user in session has profile, return true if user has profile
 export async function hasProfile() {
@@ -31,6 +30,12 @@ export async function createProfile(formData: User) {
       school: formData.school,
     },
   });
+}
+
+export async function getInfo() {
+  const session = await getSession();
+  const user = session?.user as User;
+  console.log(user);
 }
 
 export async function getUserById(userID: string): Promise<User | null> {
