@@ -1,32 +1,9 @@
-export type User = {
-  id?: string;
-  user_name: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  school: string;
-  teamIDs: Set<string>;
-  skills: Set<Skill>;
-};
+import { Prisma } from '@prisma/client'
 
-export type Auth0User = {
-  nickname: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  school: string;
-  teamIDs: Set<string>;
-  skills: Set<Skill>;
-};
+export type TeamExtra = Prisma.TeamGetPayload<{
+   include: { skills: true, users: true }
+}>
 
-export type Team = {
-  id?: string;
-  team_name: string;
-  userIDs: Set<string>;
-  skills: Set<Skill>;
-};
-
-export type Skill = {
-  id?: string;
-  skill_name: string;
-};
+export type UserExtra = Prisma.UserGetPayload<{
+   include: { teams: true, skills: true }
+}>

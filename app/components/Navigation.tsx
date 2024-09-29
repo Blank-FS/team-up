@@ -66,7 +66,7 @@ export default function Navigation() {
             <Button variant="outline" className="mr-2">
               Login
             </Button>
-            <Button style={{ backgroundColor: '#4B5563'}}>Sign Up</Button>
+            <Button style={{ backgroundColor: "#4B5563" }}>Sign Up</Button>
           </div>
         </div>
       </div>
