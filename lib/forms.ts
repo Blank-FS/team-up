@@ -10,7 +10,7 @@ export type UserForm = {
 
 export type UserSkillForm = {
    userID: string;
-   skill: Skill;
+   skillID: string;
 }
 
 export type UserTeamForm = {
