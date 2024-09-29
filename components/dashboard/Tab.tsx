@@ -1,12 +1,12 @@
 "use client";
 
-import { CustomSidebar } from "@/components/Sidebar";
+import FindTab from "@/components/dashboard/FindTab";
+import ProfileTab from "@/components/dashboard/ProfileTab";
+import TeamsTab from "@/components/dashboard/TeamsTab";
 import Navbar from "@/components/Navbar";
+import { CustomSidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import ProfileTab from "@/components/dashboard/ProfileTab";
-import FindTab from "@/components/dashboard/FindTab";
-import TeamsTab from "@/components/dashboard/TeamsTab";
 
 export default function Tab({ currentUser, availableUsers, teams }: any) {
   const [activeTab, setActiveTab] = useState("Profile");
