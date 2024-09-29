@@ -19,6 +19,8 @@ import {
 import { TeamExtra } from "@/lib/types";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { cn } from "@/lib/utils";
 
 type TeamCardProps = {
   team: TeamExtra;
@@ -30,7 +32,20 @@ export default function TeamCard({ team }: TeamCardProps) {
   return (
     <Card bgColor ="bg-[#CFC096] dark:bg-[#655A52]">
       <CardHeader>
-        <CardTitle>{team.team_name}</CardTitle>
+        <div className="flex justify-between mb-3">
+          <CardTitle>{team.team_name}</CardTitle>
+          <div className="flex gap-4">
+            {team.users.map((user) => (
+              <Avatar>
+                <AvatarImage
+                  src={user.avatar || ""}
+                  alt={cn(user.first_name, " ", user.last_name) || ""}
+                />
+                <AvatarFallback>{user.user_name}</AvatarFallback>
+              </Avatar>
+            ))}
+          </div>
+        </div>
         <CardDescription>{team.description}</CardDescription>
       </CardHeader>
       <CardContent>
