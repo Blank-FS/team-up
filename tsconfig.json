@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "faker/utils.ts"  ],
   "exclude": [
     "node_modules"
   ]

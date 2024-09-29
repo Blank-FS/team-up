@@ -8,21 +8,15 @@ import { useRouter } from "next/navigation";
 const links = [
   {
     label: "Profile",
-    icon: (
-      <UserIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: UserIcon,
   },
   {
     label: "Find",
-    icon: (
-      <SearchIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: SearchIcon,
   },
   {
     label: "Teams",
-    icon: (
-      <UsersIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
+    icon: UsersIcon,
   },
 ];
 
@@ -47,39 +41,53 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
 
   return (
     <div className="flex flex-col md:flex-row">
+      <style jsx global>{`
+        :root {
+          --sidebar-bg: #2A5993;
+        }
+        .dark {
+          --sidebar-bg: #2A5993;
+        }
+        .sidebar-container {
+          background-color: var(--sidebar-bg) !important;
+        }
+      `}</style>
       <Sidebar animate open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+        <SidebarBody className="justify-between gap-10 sidebar-container">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            <div style={{ backgroundColor: "2A5993"}} className="mt-8 flex flex-col gap-5">
-              {links.map((link, idx) => (
-                <Button
-                  variant="ghost"
-                  key={idx}
-                  onClick={() => setActiveTab(link.label)}
-                  className={
-                    cn(
+            <div className="mt-8 flex flex-col gap-5">
+              {links.map((link, idx) => {
+                const Icon = link.icon;
+                return (
+                  <Button
+                    variant="ghost"
+                    key={idx}
+                    onClick={() => setActiveTab(link.label)}
+                    className={cn(
+                      "flex flex-row items-center justify-start",
+                      "hover:bg-emerald-200 dark:hover:bg-emerald-800",
+                      "text-[#FFCB05] dark:text-[#FFCB05]",
+                      "group",
                       activeTab === link.label
-                        ? "bg-slate-300 dark:bg-gray-700"
+                        ? ""
                         : ""
-                    ) + " flex flex-row items-center justify-start hover:bg-slate-200 dark:hover:bg-slate-700"
-                  }
-                >
-                  {link.icon}
-                  {open && <span className="ml-2">{link.label}</span>}
-                </Button>
-              ))}
+                    )}
+                  >
+                    <Icon className="h-5 w-5 flex-shrink-0 text-[#FFCB05] dark:text-[#FFCB05] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
+                    {open && <span className="ml-2">{link.label}</span>}
+                  </Button>
+                );
+              })}
             </div>
           </div>
           <div className="flex flex-col">
             <Button
               variant="destructive"
-              className="flex flex-row items-center justify-center"
+              className="flex flex-row items-center justify-center bg-red-600 hover:bg-red-700 text-white group"
               onClick={() => router.push("/api/auth/logout")}
             >
-              <LogOutIcon
-                className={`h-5 w-5 flex-shrink-0 ${open ? "mr-2" : ""}`}
-              />
-              <span>{open ? "Logout" : ""}</span>
+              <LogOutIcon className="h-5 w-5 flex-shrink-0 group-hover:text-red-200 transition-colors" />
+              {open && <span className="ml-2">Logout</span>}
             </Button>
           </div>
         </SidebarBody>
