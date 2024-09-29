@@ -1,27 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import Navigation from "./components/Navigation";
-import HowSection from "./components/HowSection";
-import WhySection from "./components/WhySection";
-import ReadySection from "./components/ReadySection";
-import Footer from "./components/Footer";
-import {
-  Users,
-  Rocket,
-  MessageSquare,
-  CheckCircle,
-  UserPlus,
-  Search,
-  ArrowRight,
-} from "lucide-react";
-import Link from "next/link";
+import { getInfo } from "@/lib/utils/users";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Footer from "../components/landingPage/Footer";
+import HowSection from "../components/landingPage/HowSection";
+import Navigation from "../components/landingPage/Navigation";
+import ReadySection from "../components/landingPage/ReadySection";
+import WhySection from "../components/landingPage/WhySection";
 import photo1 from "./assets/photo1.jpg";
 import photo2 from "./assets/photo2.jpg";
 import photo3 from "./assets/photo3.jpg";
-import { getInfo } from "@/lib/utils/users";
 
 export default function LandingPage() {
   getInfo();
