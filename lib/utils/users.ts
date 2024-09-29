@@ -33,3 +33,32 @@ export async function createProfile(formData: User) {
   });
 }
 
+export async function getUserById(userID: string): Promise<User | null> {
+  const session = await getSession();
+  const userRs = await prisma.user.findUnique({
+    where: {
+      id: userID,
+    },
+    include: {
+      teams: true,
+      skills: true
+   }
+  });
+
+  if (userRs == null) {
+    return null;
+  }
+
+  let user: User = {
+    id: userRs.id,
+    user_name: userRs.user_name,
+    first_name: userRs.first_name,
+    last_name: userRs.last_name,
+    email: userRs.email,
+    school: userRs.school,
+    teamIDs: new Set(userRs.teamIDs),
+    skills: new Set(userRs.skills)
+  };
+
+  return user;
+}
