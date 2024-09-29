@@ -42,7 +42,8 @@ export async function getUserById(user_id: string): Promise<UserExtra | null> {
       user_id: user_id,
     },
     include: {
-      teams: true
+      teams: true,
+      events: true
     }
   });
 
@@ -55,7 +56,8 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
       user_name: user_name,
     },
     include: {
-      teams: true
+      teams: true,
+      events: true
     }
   });
 
@@ -63,7 +65,7 @@ export async function getUserByName(user_name: string): Promise<UserExtra | null
 }
 
 export async function getAllUsers(): Promise<UserExtra[] | null> {
-  const user = await prisma.user.findMany({ include: { teams: true } });
+  const user = await prisma.user.findMany({ include: { teams: true, events: true} });
   return user;
 }
 
@@ -91,6 +93,23 @@ export async function addUserTeam(
     data: {
       teams: {
         connect: [
+          {
+            team_id: userTeamForm.teamID
+          },
+        ],
+      }
+    },
+  });
+}
+
+export async function removeUserTeam(
+  userTeamForm: UserTeamForm
+) {
+  const updatedUser = await prisma.user.update({
+    where: { user_id: userTeamForm.userID },
+    data: {
+      teams: {
+        disconnect: [
           {
             team_id: userTeamForm.teamID
           },
@@ -137,4 +156,17 @@ export async function updateUser(
       skills: user.skills
     },
   });
+}
+
+export async function getAllUserSkill(user_id: string): Promise<string[] | null> {
+  const user = await prisma.user.findUnique({
+     where: {
+        user_id: user_id
+     },
+     select: {
+        skills: true
+     }
+  });
+
+  return user?.skills as string[];
 }
