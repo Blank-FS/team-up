@@ -28,21 +28,21 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     (user) =>
       user.user_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.skillIDs.some((skill) =>
+      user.skills.some((skill) =>
         skill.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
 
   const cards = filteredUsers.map((user) => ({
     title: `${user.first_name} ${user.last_name}`,
-    src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: user.avatar,
     description: (
       <div>
         <p className="mb-2">{user.email}</p>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-row gap-1 items-center justify-center">
           {user.skills.map((skill, index) => (
             <Badge key={index} variant="outline" className="text-xs">
-              {skill.skill_name}
+              {skill}
             </Badge>
           ))}
         </div>
@@ -58,7 +58,7 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
             <Badge variant="secondary">{user.role}</Badge>
             {user.skills.map((skill, index) => (
               <Badge key={index} variant="outline">
-                {skill.skill_name}
+                {skill}
               </Badge>
             ))}
           </div>

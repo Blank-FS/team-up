@@ -17,9 +17,11 @@ model User {
   bio        String   @default("")
   email      String   @unique
   school     String   @default("")
+  skills     String[] @default([])
   teamIDs    String[] @default([])
   teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
-  skills     String[] @default([])
+  eventIDs   String[] @default([])
+  events     Event[]  @relation(fields: [eventIDs], references: [event_id])
 }
 
 model Team {
@@ -28,5 +30,15 @@ model Team {
   description String   @default("")
   userIDs     String[] @default([])
   users       User[]   @relation(fields: [userIDs], references: [user_id])
-  skills      String[] @default([])
+  eventIDs    String[] @default([])
+  events      Event[]  @relation(fields: [eventIDs], references: [event_id])
+}
+
+model Event {
+  event_id   String   @id @default(uuid()) @map("_id")
+  event_name String   @unique
+  userIDs    String[] @default([])
+  users      User[]   @relation(fields: [userIDs], references: [user_id])
+  teamIDs    String[] @default([])
+  teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
 }

@@ -1,2 +1,11 @@
-import { Team, User } from "@prisma/client";
-
+export const predefinedSkills = ["JavaScript",
+  "React",
+  "Node.js",
+  "Python",
+  "Java",
+  "C++",
+  "UI/UX Design",
+  "Data Science",
+  "Machine Learning",
+  "DevOps",
+  "Cloud Computing",]

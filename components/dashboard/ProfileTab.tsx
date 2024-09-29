@@ -23,12 +23,12 @@ const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
           <div>
             <h3 className="font-semibold">Skills</h3>
             <div className="flex flex-wrap gap-2 mt-2">
-              {currentUser.skills?.map((skill) => (
+              {currentUser.skills?.map((skill, index) => (
                 <span
-                  key={skill.skill_id}
+                  key={index}
                   className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm"
                 >
-                  {skill.skill_name}
+                  {skill}
                 </span>
               ))}
             </div>
