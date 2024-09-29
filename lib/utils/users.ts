@@ -24,12 +24,13 @@ export async function createProfile(formData: User) {
   const profile = await prisma.user.create({
     data: {
       email: user.email,
+      user_name: user.user_name,
       first_name: formData.first_name,
       last_name: formData.last_name,
-      user_name: formData.user_name,
       school: formData.school,
     },
   });
+  return "Profile Created!";
 }
 
 export async function getInfo() {
@@ -46,8 +47,8 @@ export async function getUserById(userID: string): Promise<User | null> {
     },
     include: {
       teams: true,
-      skills: true
-   }
+      skills: true,
+    },
   });
 
   if (userRs == null) {
@@ -62,7 +63,7 @@ export async function getUserById(userID: string): Promise<User | null> {
     email: userRs.email,
     school: userRs.school,
     teamIDs: new Set(userRs.teamIDs),
-    skills: new Set(userRs.skills)
+    skills: new Set(userRs.skills),
   };
 
   return user;

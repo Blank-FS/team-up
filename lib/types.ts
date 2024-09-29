@@ -9,11 +9,21 @@ export type User = {
   skills: Set<Skill>;
 };
 
+export type Auth0User = {
+  nickname: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  school: string;
+  teamIDs: Set<string>;
+  skills: Set<Skill>;
+};
+
 export type Team = {
   id?: string;
   team_name: string;
   userIDs: Set<string>;
-  skills:  Set<Skill>;
+  skills: Set<Skill>;
 };
 
 export type Skill = {
