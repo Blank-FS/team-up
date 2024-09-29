@@ -46,8 +46,8 @@ export async function getUserById(userID: string): Promise<User | null> {
     },
     include: {
       teams: true,
-      skills: true
-   }
+      skills: true,
+    },
   });
 
   if (userRs == null) {
@@ -62,7 +62,7 @@ export async function getUserById(userID: string): Promise<User | null> {
     email: userRs.email,
     school: userRs.school,
     teamIDs: new Set(userRs.teamIDs),
-    skills: new Set(userRs.skills)
+    skills: new Set(userRs.skills),
   };
 
   return user;

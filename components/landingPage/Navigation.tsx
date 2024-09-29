@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { ThemeSwitch } from "../theme-switch";
 
 export default function Navigation() {
   return (
@@ -59,7 +60,8 @@ export default function Navigation() {
               </Link>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="flex flex-row items-center justify-center gap-3">
+            <ThemeSwitch />
             <Button variant="outline" className="mr-2">
               Login
             </Button>
