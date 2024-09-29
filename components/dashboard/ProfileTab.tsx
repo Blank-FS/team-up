@@ -7,16 +7,17 @@ import {
 } from "@/components/ui/card";
 import { UserExtra } from "@/lib/types";
 
+
 interface ProfileTabProps {
   currentUser: UserExtra;
 }
 
 const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
   return (
-    <Card bgColor="bg-[#CFC096]">
+    <Card>
       <CardHeader>
         <CardTitle>{currentUser.user_name}</CardTitle>
-        <CardDescription textColor="text-[#00274C]">{currentUser.role}</CardDescription>
+        <CardDescription textColor="text-[#00274C] dark:text-[#FFCB05]">{currentUser.role}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -26,7 +27,7 @@ const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
               {currentUser.skills?.map((skill, index) => (
                 <span
                   key={index}
-                  className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm"
+                  className="bg-black dark:bg-[#CFC096] text-primary-foreground px-2 py-1 rounded-full text-sm"
                 >
                   {skill}
                 </span>

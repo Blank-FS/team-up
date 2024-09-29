@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { TeamExtra } from "@/lib/types";
 
+
 interface TeamsTabProps {
   teams: TeamExtra[];
 }
@@ -19,7 +20,7 @@ const TeamsTab: React.FC<TeamsTabProps> = ({ teams }) => {
         <Card key={team.team_id}>
           <CardHeader>
             <CardTitle>{team.team_name}</CardTitle>
-            <CardDescription>{team.description}</CardDescription>
+            <CardDescription textColor="text-[#00274C] dark:text-gray">{team.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <h3 className="font-semibold mb-2">Members:</h3>
