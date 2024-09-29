@@ -1,7 +1,8 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import prisma from "../../prisma/db";
-import { User, Skill, Team } from "../types";
+import type { User } from '@prisma/client'
 import { UserForm, UserSkillForm, UserTeamForm } from "../forms";
+import { UserExtra } from "../types";
 
 // Check if current user in session has profile, return true if user has profile
 export async function hasProfile() {
@@ -24,88 +25,92 @@ export async function createProfile(formData: UserForm) {
   const profile = await prisma.user.create({
     data: {
       email: user.email,
-      user_name: user.user_name,
       first_name: formData.first_name,
       last_name: formData.last_name,
+      user_name: formData.user_name,
       school: formData.school,
     },
   });
-  return "Profile Created!";
 }
 
 export async function getInfo() {
   const session = await getSession();
-  const user = session?.user as User;
+  const user = session?.user as UserExtra;
   return user;
 }
 
-export async function getUserById(userID: string): Promise<User | null> {
-  const session = await getSession();
-  const userRs = await prisma.user.findUnique({
+export async function getUserById(user_id: string): Promise<UserExtra | null> {
+  const user = await prisma.user.findUnique({
     where: {
-      id: userID,
+      user_id: user_id,
     },
     include: {
       teams: true,
-      skills: true,
-    },
-      skills: true,
-    },
+      skills: true
+    }
   });
-
-  if (userRs == null) {
-    return null;
-  }
-
-  let user: User = {
-    id: userRs.id,
-    user_name: userRs.user_name,
-    first_name: userRs.first_name,
-    last_name: userRs.last_name,
-    email: userRs.email,
-    school: userRs.school,
-    teamIDs: new Set(userRs.teamIDs),
-    skills: new Set(userRs.skills),
-  };
 
   return user;
 }
 
-export async function addUserSkill(userSkillForm: UserSkillForm) {
+export async function getUserByName(user_name: string): Promise<UserExtra | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      user_name: user_name,
+    },
+    include: {
+      teams: true,
+      skills: true
+    }
+  });
+
+  return user;
+}
+
+export async function getAllUsers(): Promise<UserExtra[] | null> {
+  const user = await prisma.user.findMany({ include: { teams: true, skills: true } });
+  return user;
+}
+
+export async function addUserSkill(
+  userSkillForm: UserSkillForm
+) {
   const session = await getSession();
   const user = session?.user as User;
 
   const updatedUser = await prisma.user.update({
-    where: { id: userSkillForm.userID },
+    where: { user_id: userSkillForm.userID },
     data: {
       skills: {
         connectOrCreate: [
           {
             where: {
-              id: userSkillForm.skill.id,
+              skill_id: userSkillForm.skill.skill_id,
             },
             create: userSkillForm.skill,
           },
         ],
-      },
+      }
     },
   });
 }
 
-export async function addUserTeam(userTeamForm: UserTeamForm) {
+export async function addUserTeam(
+  userTeamForm: UserTeamForm
+) {
   const session = await getSession();
   const user = session?.user as User;
 
   const updatedUser = await prisma.user.update({
-    where: { id: userTeamForm.userID },
+    where: { user_id: userTeamForm.userID },
     data: {
       teams: {
         connect: [
           {
-            id: userTeamForm.teamID,
+            team_id: userTeamForm.teamID
           },
         ],
-      },
+      }
     },
   });
 }

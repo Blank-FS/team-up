@@ -8,40 +8,43 @@ generator client {
 }
 
 model User {
-  id         String   @id @default(uuid()) @map("_id")
-  user_name  String
+  user_id    String   @id @default(uuid()) @map("_id")
+  user_name  String   @unique
   first_name String
   last_name  String
+  role       String   @default("")
+  bio        String   @default("")
   email      String   @unique
   school     String   @default("")
   teamIDs    String[] @default([])
-  teams      Team[]   @relation(fields: [teamIDs], references: [id])
+  teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
   skillIDs   String[] @default([])
-  skills     Skill[]  @relation(fields: [skillIDs], references: [id])
+  skills     Skill[]  @relation(fields: [skillIDs], references: [skill_id])
 
   @@unique([teamIDs])
   @@unique([skillIDs])
 }
 
 model Team {
-  id        String   @id @default(uuid()) @map("_id")
-  team_name String   @unique
-  userIDs   String[] @default([])
-  users     User[]   @relation(fields: [userIDs], references: [id])
-  skillIDs  String[] @default([])
-  skills    Skill[]  @relation(fields: [skillIDs], references: [id])
+  team_id     String   @id @default(uuid()) @map("_id")
+  team_name   String   @unique
+  description String   @default("")
+  userIDs     String[] @default([])
+  users       User[]   @relation(fields: [userIDs], references: [user_id])
+  skillIDs    String[] @default([])
+  skills      Skill[]  @relation(fields: [skillIDs], references: [skill_id])
 
   @@unique([userIDs])
   @@unique([skillIDs])
 }
 
 model Skill {
-  id         String   @id @default(uuid()) @map("_id")
+  skill_id   String   @id @default(uuid()) @map("_id")
   skill_name String   @unique
   userIDs    String[] @default([])
-  users      User[]   @relation(fields: [userIDs], references: [id])
+  users      User[]   @relation(fields: [userIDs], references: [user_id])
   teamIDs    String[] @default([])
-  teams      Team[]   @relation(fields: [teamIDs], references: [id])
+  teams      Team[]   @relation(fields: [teamIDs], references: [team_id])
 
   @@unique([userIDs])
   @@unique([teamIDs])
