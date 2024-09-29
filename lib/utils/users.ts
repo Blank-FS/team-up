@@ -76,6 +76,14 @@ export async function getUserByEmail(email: string): Promise<UserExtra | null> {
 
 export async function getAllUsers(): Promise<UserExtra[] | null> {
   const user = await prisma.user.findMany({
+    where : {
+      first_name: {
+        not: ""
+      },
+      last_name: {
+        not: ""
+      }
+    },
     include: { teams: true, events: true },
   });
   return user;
