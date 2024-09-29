@@ -8,7 +8,6 @@ import Navbar from "@/components/Navbar";
 import { CustomSidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import FindTab2 from "@/components/dashboard/FindTab2";
 
 export default function Tab({ currentUser, availableUsers, teams }: any) {
   const [activeTab, setActiveTab] = useState("Profile");
@@ -18,11 +17,11 @@ export default function Tab({ currentUser, availableUsers, teams }: any) {
       case "Profile":
         return <ProfileTab currentUser={currentUser} />;
       case "Find":
-        return <FindTab2 availableUsers={availableUsers} />;
+        return <FindTab availableUsers={availableUsers} />;
       case "Teams":
         return <TeamsTab teams={teams} />;
       case "Pending":
-      return <PendingTab currentUser={currentUser} />;
+        return <PendingTab currentUser={currentUser} />;
       default:
         return null;
     }

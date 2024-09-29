@@ -8,13 +8,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import { FocusCards } from "../ui/focus-cards";
 import { ExpandableCard } from "./ExpandableCard";
 import { Badge } from "../ui/badge";
 import { UserExtra } from "@/lib/types";
+import ProfileCard from "./ProfileCard";
+import { cn } from "@/lib/utils";
 
 interface FindTabProps {
   availableUsers: UserExtra[];
@@ -52,8 +53,8 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     ctaLink: "",
     content: (
       <Card className="w-full">
-        <CardHeader> 
-          <CardTitle textColor="text-[#00274C] dark:text-[#FFCB05]">{user.user_name}</CardTitle>
+        <CardHeader>
+          <CardTitle>{user.user_name}</CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">{user.role}</Badge>
             {user.skills.map((skill, index) => (
@@ -67,6 +68,14 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
           <strong>School:</strong> {user.school}
         </CardContent>
       </Card>
+    ),
+    normal: (
+      <ProfileCard
+        pfp={user.avatar}
+        username={user.user_name}
+        name={cn(user.first_name, " ", user.last_name)}
+        skills={user.skills}
+      ></ProfileCard>
     ),
   }));
 
@@ -86,7 +95,7 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
               `${activeUser?.first_name} ${activeUser?.last_name}`
           ) || null
         }
-        setActive={(card) => {
+        setActive={(card: any) => {
           if (card) {
             const user = availableUsers.find(
               (u) => `${u.first_name} ${u.last_name}` === card.title
