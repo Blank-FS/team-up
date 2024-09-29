@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { User } from "@/lib/types";
+import { User } from "@prisma/client";
 
 interface FindTabProps {
   availableUsers: User[];
@@ -21,7 +21,7 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
         {availableUsers.map((user) => (
           <Card key={user.user_id}>
             <CardHeader>
-              <CardTitle>{user.username}</CardTitle>
+              <CardTitle>{user.user_name}</CardTitle>
               <CardDescription>{user.role}</CardDescription>
             </CardHeader>
             <CardContent>

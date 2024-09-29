@@ -1,4 +1,5 @@
 // components/Navbar.tsx
+"use client";
 import { ThemeSwitch } from "./theme-switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -41,9 +42,18 @@ const Navbar = () => {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className=" border-none shadow-none" align="center">
+            <DropdownMenuContent
+              className=" border-none shadow-none"
+              align="center"
+            >
               <DropdownMenuItem className="flex flex-col items-center justify-center focus:bg-transparent border-none">
-                <Button variant="destructive" className="w-auto h-auto object-fill" onClick={handleLogout}>Sign out</Button>
+                <Button
+                  variant="destructive"
+                  className="w-auto h-auto object-fill"
+                  onClick={handleLogout}
+                >
+                  Sign out
+                </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
