@@ -5,17 +5,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { User } from "@/lib/types";
+import { UserExtra } from "@/lib/types";
 
 interface ProfileTabProps {
-  currentUser: User;
+  currentUser: UserExtra;
 }
 
 const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{currentUser.username}</CardTitle>
+        <CardTitle>{currentUser.user_name}</CardTitle>
         <CardDescription>{currentUser.role}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -25,10 +25,10 @@ const ProfileTab: React.FC<ProfileTabProps> = ({ currentUser }) => {
             <div className="flex flex-wrap gap-2 mt-2">
               {currentUser.skills?.map((skill) => (
                 <span
-                  key={skill}
+                  key={skill.skill_id}
                   className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm"
                 >
-                  {skill}
+                  {skill.skill_name}
                 </span>
               ))}
             </div>

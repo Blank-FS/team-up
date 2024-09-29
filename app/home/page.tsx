@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import mocks from "@/lib/mocks";
 import ProfileTab from "@/components/dashboard/Profile";
 import FindTab from "@/components/dashboard/Find";
 import TeamsTab from "@/components/dashboard/Teams";
@@ -9,6 +8,9 @@ import { CustomSidebar } from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { getAllUsers, getInfo, getUserByName } from "@/lib/utils/users";
+import { getAllTeams } from "@/lib/utils/teams";
+import { UserExtra } from "@/lib/types";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Profile");
@@ -17,11 +19,9 @@ const Dashboard = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  const {
-    mockCurrentUser: currentUser,
-    mockAvailableUsers: availableUsers,
-    mockTeams: teams,
-  } = mocks;
+  const currentUser : Promise<UserExtra | null> = getUserByName("kennyli306");
+  const availableUsers = getAllUsers();
+  const teams = getAllTeams();
 
   const renderTabContent = () => {
     switch (activeTab) {

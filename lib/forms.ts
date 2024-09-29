@@ -1,4 +1,4 @@
-import { User, Skill, Team } from "./types";
+import { Skill } from "@prisma/client";
 
 export type UserForm = {
    user_name: string
@@ -11,7 +11,7 @@ export type UserForm = {
 export type UserSkillForm = {
    userID: string;
    skill: Skill;
-};
+}
 
 export type UserTeamForm = {
    userID: string;

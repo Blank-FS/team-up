@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Team } from "@/lib/types";
+import { TeamExtra } from "@/lib/types";
 
 interface TeamsTabProps {
-  teams: Team[];
+  teams: TeamExtra[];
 }
 
 const TeamsTab: React.FC<TeamsTabProps> = ({ teams }) => {
@@ -19,15 +19,15 @@ const TeamsTab: React.FC<TeamsTabProps> = ({ teams }) => {
         <Card key={team.team_id}>
           <CardHeader>
             <CardTitle>{team.team_name}</CardTitle>
-            <CardDescription>{team.team_description}</CardDescription>
+            <CardDescription>{team.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <h3 className="font-semibold mb-2">Members:</h3>
             <div className="flex gap-2">
-              {team.team_members.map((member) => (
-                <Avatar key={member.user_id}>
+              {team.users.map((user) => (
+                <Avatar key={user.user_id}>
                   <AvatarFallback>
-                    {member.username
+                    {user.user_name
                       .split(" ")
                       .map((n) => n[0])
                       .join("")}
