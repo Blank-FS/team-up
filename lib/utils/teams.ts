@@ -86,6 +86,9 @@ export async function updateTeam(team: TeamForm) {
       where: {
          team_id: team.team_id,
       },
-      data: team,
+      data: {
+         team_name: team.team_name,
+         description: team.description
+      },
    });
 }
