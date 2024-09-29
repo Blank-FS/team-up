@@ -82,12 +82,9 @@ export async function addUserSkill(
     where: { user_id: userSkillForm.userID },
     data: {
       skills: {
-        connectOrCreate: [
+        connect: [
           {
-            where: {
-              skill_id: userSkillForm.skill.skill_id,
-            },
-            create: userSkillForm.skill,
+            skill_id: userSkillForm.skill_name
           },
         ],
       }
