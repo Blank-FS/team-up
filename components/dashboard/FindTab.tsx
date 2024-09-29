@@ -29,9 +29,10 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     (user) =>
       user.user_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.skills.some((skill) =>
+      (user.skills.some((skill) =>
         skill.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      ) &&
+        user.first_name !== "")
   );
 
   const cards = filteredUsers.map((user) => ({
@@ -40,7 +41,8 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     description: (
       <div>
         <p className="mb-2">{user.email}</p>
-        <div className="flex flex-row gap-1 items-center justify-center">
+        <div className="flex flex-row gap-1 items-center flex-wrap">
+          <Badge variant="secondary">{user.role}</Badge>
           {user.skills.map((skill, index) => (
             <Badge key={index} variant="outline" className="text-xs">
               {skill}
@@ -52,22 +54,12 @@ const FindTab: React.FC<FindTabProps> = ({ availableUsers }) => {
     ctaText: "Close",
     ctaLink: "",
     content: (
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>{user.user_name}</CardTitle>
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{user.role}</Badge>
-            {user.skills.map((skill, index) => (
-              <Badge key={index} variant="outline">
-                {skill}
-              </Badge>
-            ))}
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-2">
+      <>
+        <h3 className="text-xl">
           <strong>School:</strong> {user.school}
-        </CardContent>
-      </Card>
+        </h3>
+        {user.bio && <p>{user.bio}</p>}
+      </>
     ),
     normal: (
       <ProfileCard
