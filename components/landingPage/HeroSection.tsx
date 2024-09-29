@@ -8,7 +8,7 @@ import photo3 from "../assets/photo3.jpg";
 import photo4 from "../assets/photo4.jpg";
 import { Button } from "../../components/ui/button";
 
-export default function Footer() {
+export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [photo1, photo2, photo3, photo4];
 
