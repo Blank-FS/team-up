@@ -7,7 +7,7 @@ import { UserForm } from "@/lib/forms";
 
 export default async function MongoTest() {
   
-  console.log(await getAllTeamSkills("TeamUp"));
+  console.log(await getInfo());
 
   return <p></p>;
 }
