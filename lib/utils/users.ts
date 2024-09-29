@@ -1,7 +1,8 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import type { User } from "@prisma/client";
 import prisma from "../../prisma/db";
-import { UserForm, UserSkillForm, UserTeamForm } from "../forms";
+import type { Invite, Team, User } from '@prisma/client'
+import { UserSkillForm, UserTeamForm, UserForm } from "../forms";
 import { UserExtra } from "../types";
 
 // Check if current user in session has profile, return true if user has profile
@@ -177,4 +178,30 @@ export async function getAllUserSkill(
   });
 
   return user?.skills as string[];
+}
+
+export async function getUserTeams(user_id: string): Promise<Team[] | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      user_id: user_id
+    },
+    select: {
+      teams: true
+    }
+  });
+
+  return user?.teams as Team[];
+}
+
+export async function getUserPending(user_id: string): Promise<Invite[] | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      user_id: user_id
+    },
+    select: {
+      invites: true
+    }
+  });
+
+  return user?.invites as Invite[];
 }

@@ -3,10 +3,12 @@
 import FindTab from "@/components/dashboard/FindTab";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import TeamsTab from "@/components/dashboard/TeamsTab";
+import PendingTab from "@/components/dashboard/PendingTab";
 import Navbar from "@/components/Navbar";
 import { CustomSidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
+import FindTab2 from "@/components/dashboard/FindTab2";
 
 export default function Tab({ currentUser, availableUsers, teams }: any) {
   const [activeTab, setActiveTab] = useState("Profile");
@@ -16,9 +18,11 @@ export default function Tab({ currentUser, availableUsers, teams }: any) {
       case "Profile":
         return <ProfileTab currentUser={currentUser} />;
       case "Find":
-        return <FindTab availableUsers={availableUsers} />;
+        return <FindTab2 availableUsers={availableUsers} />;
       case "Teams":
         return <TeamsTab teams={teams} />;
+      case "Pending":
+      return <PendingTab currentUser={currentUser} />;
       default:
         return null;
     }

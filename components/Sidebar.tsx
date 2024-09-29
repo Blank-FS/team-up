@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { LogOutIcon, SearchIcon, UserIcon, UsersIcon } from "lucide-react";
+import { LogOutIcon, SearchIcon, UserIcon, UsersIcon, SquarePlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
@@ -17,6 +17,10 @@ const links = [
   {
     label: "Teams",
     icon: UsersIcon,
+  },
+  {
+    label: "Form",
+    icon: SquarePlusIcon,
   },
 ];
 
