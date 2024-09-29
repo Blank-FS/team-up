@@ -19,7 +19,7 @@ const links = [
     icon: UsersIcon,
   },
   {
-    label: "Form",
+    label: "Pending",
     icon: SquarePlusIcon,
   },
 ];
