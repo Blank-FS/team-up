@@ -1,8 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ThemeSwitch } from "../theme-switch";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navigation() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { user } = useUser();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const handleLogin = () => {
+    router.push("/api/auth/login");
+  };
+
+  const handleLogout = () => {
+    router.push("/api/auth/logout");
+  };
+
   return (
     <nav className="bg-white dark:bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,10 +86,28 @@ export default function Navigation() {
           </div>
           <div className="flex flex-row items-center justify-center gap-3">
             <ThemeSwitch />
-            <Button variant="outline" className="mr-2">
-              Login
-            </Button>
-            <Button>Sign Up</Button>
+            {user ? (
+              <div className="flex items-center gap-3">
+                <Avatar className="hover:cursor-pointer" onClick={() => router.push("/home")}>
+                  <AvatarImage
+                    src={user.picture ?? ""}
+                    alt={user.name ?? "User"}
+                  />
+                  <AvatarFallback>{user.nickname}</AvatarFallback>
+                </Avatar>
+              </div>
+            ) : (
+              <>
+                <Button
+                  onClick={handleLogin}
+                  variant="outline"
+                  className="mr-2"
+                >
+                  Login
+                </Button>
+                <Button>Sign Up</Button>
+              </>
+            )}
           </div>
         </div>
       </div>
