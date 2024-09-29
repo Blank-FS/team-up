@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import { CustomSidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import InvitesCard from "./PendingTab";
+import InvitesCard from "./InvitesTab";
 
 export default function Tab({ currentUser, availableUsers, teams }: any) {
   const [activeTab, setActiveTab] = useState("Profile");

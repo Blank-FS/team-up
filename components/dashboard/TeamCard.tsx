@@ -30,7 +30,7 @@ export default function TeamCard({ team }: TeamCardProps) {
   const [selectedTeam, setSelectedTeam] = useState<TeamExtra | null>(null);
 
   return (
-    <Card>
+    <Card bgColor ="bg-[#CFC096] dark:bg-[#655A52]">
       <CardHeader>
         <div className="flex justify-between mb-3">
           <CardTitle>{team.team_name}</CardTitle>
