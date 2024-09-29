@@ -1,7 +1,7 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import prisma from "../../prisma/db";
 import { User, Skill, Team } from "../types";
-import { UserForm } from "../forms";
+import { UserForm, UserSkillForm } from "../forms";
 
 // Check if current user in session has profile, return true if user has profile
 export async function hasProfile() {
@@ -16,7 +16,7 @@ export async function hasProfile() {
   return profile ? true : false;
 }
 
-export async function createProfile(formData: User) {
+export async function createProfile(formData: UserForm) {
   if (await hasProfile()) return "Profile Exists";
   const session = await getSession();
   const user = session?.user as User;
@@ -47,7 +47,7 @@ export async function getUserById(userID: string): Promise<User | null> {
     include: {
       teams: true,
       skills: true
-   }
+    }
   });
 
   if (userRs == null) {
@@ -66,4 +66,28 @@ export async function getUserById(userID: string): Promise<User | null> {
   };
 
   return user;
+}
+
+export async function addUserSkill(
+  userSkillForm: UserSkillForm
+) {
+  const session = await getSession();
+  const user = session?.user as User;
+
+  const updatedUser = await prisma.user.update({
+    where: { id: userSkillForm.userID },
+    data: {
+      skills: {
+        connectOrCreate: [
+          {
+            where: {
+              skill_name: userSkillForm.skill.id,
+            },
+            create: userSkillForm.skill,
+          },
+        ],
+      }
+    },
+  });
+
 }

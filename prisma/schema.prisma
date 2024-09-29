@@ -18,6 +18,9 @@ model User {
   teams      Team[]   @relation(fields: [teamIDs], references: [id])
   skillIDs   String[] @default([])
   skills     Skill[]  @relation(fields: [skillIDs], references: [id])
+
+  @@unique([teamIDs])
+  @@unique([skillIDs])
 }
 
 model Team {
@@ -27,6 +30,9 @@ model Team {
   users     User[]   @relation(fields: [userIDs], references: [id])
   skillIDs  String[] @default([])
   skills    Skill[]  @relation(fields: [skillIDs], references: [id])
+
+  @@unique([userIDs])
+  @@unique([skillIDs])
 }
 
 model Skill {
@@ -36,4 +42,7 @@ model Skill {
   users      User[]   @relation(fields: [userIDs], references: [id])
   teamIDs    String[] @default([])
   teams      Team[]   @relation(fields: [teamIDs], references: [id])
+
+  @@unique([userIDs])
+  @@unique([teamIDs])
 }
