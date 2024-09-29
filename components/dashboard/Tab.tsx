@@ -30,7 +30,7 @@ export default function Tab({ currentUser, availableUsers, teams }: any) {
       <div className="flex flex-1">
         <CustomSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         <Separator className="h-full mb-auto" orientation="vertical" />
-        <main className="flex-1 p-6 overflow-auto bg-background text-foreground">
+        <main className="flex-1 p-6 overflow-auto bg-slate-200 dark:bg-slate-800 text-foreground">
           <h2 className="text-3xl font-bold mb-4">{activeTab}</h2>
           {renderTabContent()}
         </main>
