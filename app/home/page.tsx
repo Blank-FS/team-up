@@ -1,28 +1,20 @@
-"use client";
-
-import { useState } from "react";
+import { getUserByName, getAllUsers } from "@/lib/utils/users";
+import { getAllTeams } from "@/lib/utils/teams";
 import ProfileTab from "@/components/dashboard/Profile";
 import FindTab from "@/components/dashboard/Find";
 import TeamsTab from "@/components/dashboard/Teams";
 import { CustomSidebar } from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { getAllUsers, getInfo, getUserByName } from "@/lib/utils/users";
-import { getAllTeams } from "@/lib/utils/teams";
-import { UserExtra } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
+import { UserExtra } from "@/lib/types";
+import { useState } from "react";
 
-const Dashboard = () => {
+export default async function Dashboard() {
+  const currentUser: UserExtra | null = await getUserByName("kennyli306");
+  const availableUsers = await getAllUsers();
+  const teams = await getAllTeams();
+
   const [activeTab, setActiveTab] = useState("Profile");
-  const { user, error, isLoading } = useUser();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-
-  const currentUser : Promise<UserExtra | null> = getUserByName("kennyli306");
-  const availableUsers = getAllUsers();
-  const teams = getAllTeams();
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -50,6 +42,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
